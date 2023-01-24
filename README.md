@@ -18,7 +18,7 @@
 -   [API] on `127.0.0.1:80` or `localhost:80`
 -   [WEB] on `127.0.0.1:8000` or `localhost:8000`
 
-## How to use Prettierrc
+## How to use Prettier
 
 Using Command Palette (CMD/CTRL + Shift + P)
 
