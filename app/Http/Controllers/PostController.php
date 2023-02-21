@@ -52,10 +52,10 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\API\V1\Post  $post
+     * @param  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Post $post)
+    public function show($id)
     {
         $post = Post::with('user')->find($id);
 
