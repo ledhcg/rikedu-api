@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Policies;
+namespace App\Policies\API\V1;
 
 use App\Models\API\V1\Post;
 use App\Models\User;

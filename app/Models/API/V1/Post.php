@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 
-use App\Traits\HasUuid;
+use App\Traits\API\V1\HasUuid;
 
 class Post extends Model
 {

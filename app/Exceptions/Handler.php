@@ -4,7 +4,7 @@ namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
-use App\Traits\ApiResponse;
+use App\Traits\API\V1\ApiResponse;
 
 
 class Handler extends ExceptionHandler

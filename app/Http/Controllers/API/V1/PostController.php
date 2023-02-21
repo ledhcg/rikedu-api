@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API\V1;
 
 use App\Models\API\V1\Post;
-use App\Http\Requests\StorePostRequest;
-use App\Http\Requests\UpdatePostRequest;
-use App\Http\Resources\PostCollection;
-use App\Http\Resources\PostResource;
-use App\Traits\ApiResponse;
+use App\Http\Requests\API\V1\StorePostRequest;
+use App\Http\Requests\API\V1\UpdatePostRequest;
+use App\Http\Resources\API\V1\PostCollection;
+use App\Http\Resources\API\V1\PostResource;
+use App\Traits\API\V1\ApiResponse;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
