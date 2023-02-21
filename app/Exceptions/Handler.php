@@ -4,9 +4,13 @@ namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
+use App\Traits\API\V1\ApiResponse;
+
 
 class Handler extends ExceptionHandler
 {
+    use ApiResponse;
+
     /**
      * A list of exception types with their corresponding custom log levels.
      *
@@ -47,4 +51,15 @@ class Handler extends ExceptionHandler
             //
         });
     }
+
+    // Handling JSON Error Responses
+    public function render($request, Throwable $exception)
+{
+    if ($exception instanceof \Symfony\Component\HttpKernel\Exception\HttpException) {
+        return $this->errorResponse($exception->getMessage(), $exception->getStatusCode());
+    }
+
+    return parent::render($request, $exception);
+}
+
 }
