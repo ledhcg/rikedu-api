@@ -3,9 +3,14 @@
 namespace App\Http\Requests\API\V1;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator;
+use App\Traits\API\V1\ApiResponse;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class UpdatePostRequest extends FormRequest
 {
+    use ApiResponse;
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -29,5 +34,12 @@ class UpdatePostRequest extends FormRequest
             'thumbnail' => 'sometimes|required|url',
             'published' => 'sometimes|required|boolean',
         ];
+    }
+
+    public function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(
+            $this->validationErrorResponse("Validation failed", $validator->errors())
+        );
     }
 }
