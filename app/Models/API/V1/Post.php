@@ -4,6 +4,8 @@ namespace App\Models\API\V1;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
+
 use App\Traits\HasUuid;
 
 class Post extends Model
