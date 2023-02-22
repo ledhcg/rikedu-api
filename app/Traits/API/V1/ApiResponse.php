@@ -23,7 +23,6 @@ trait ApiResponse
             'success' => false,
             'status_code' => $status,
             'message' => $message,
-            'data' => null,
         ], $status);
     }
 
@@ -43,7 +42,7 @@ trait ApiResponse
             'success' => false,
             'status_code' => Response::HTTP_UNPROCESSABLE_ENTITY,
             'message' => $message,
-            'data' => $errors,
+            'errors' => $errors,
         ], Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 

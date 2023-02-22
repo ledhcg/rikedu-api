@@ -81,10 +81,10 @@ class PostController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \App\Http\Requests\UpdatePostRequest  $request
-     * @param  \App\Models\API\V1\Post  $post
+     * @param  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdatePostRequest $request, Post $post)
+    public function update(UpdatePostRequest $request, $id)
     {
         $post = Post::find($id);
 
@@ -102,19 +102,16 @@ class PostController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\API\V1\Post  $post
+     * @param  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Post $post)
+    public function destroy($id)
     {
         $post = Post::find($id);
-
         if (!$post) {
             return $this->notFoundResponse('Post not found');
         }
-
         $post->delete();
-
         return $this->deletedResponse('Post deleted successfully');
     }
 }
