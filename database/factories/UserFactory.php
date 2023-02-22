@@ -4,6 +4,9 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
+use App\Models\API\V1\Role;
+use App\Models\User;
+use App\Models\API\V1\Permission;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
@@ -36,5 +39,22 @@ class UserFactory extends Factory
         return $this->state(fn (array $attributes) => [
             'email_verified_at' => null,
         ]);
+    }
+
+    public function configure()
+    {
+        return $this->afterCreating(function (User $user) {
+            $adminRole = Role::findByName('admin');
+
+            $createPostsPermission = Permission::findByName('create posts');
+            $updateAnyPostPermission = Permission::findByName('update any post');
+            $deleteAnyPostPermission = Permission::findByName('delete any post');
+
+            // Assign roles and permissions to the user
+            $user->assignRole($adminRole);
+            $user->givePermissionTo($createPostsPermission);
+            $user->givePermissionTo($updateAnyPostPermission);
+            $user->givePermissionTo($deleteAnyPostPermission);
+        });
     }
 }
