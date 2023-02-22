@@ -63,3 +63,9 @@ PMA_HOST=db
 PMA_USER=root
 PMA_PASSWORD=secret
 ```
+
+## Documentation
+
+```
+localhost:8000/api/v1/docs
+```
