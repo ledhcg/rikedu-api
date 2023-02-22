@@ -5,6 +5,7 @@ namespace App\Exceptions;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
 use App\Traits\API\V1\ApiResponse;
+use Illuminate\Auth\AuthenticationException;
 
 
 class Handler extends ExceptionHandler
@@ -55,9 +56,14 @@ class Handler extends ExceptionHandler
     // Handling JSON Error Responses
     public function render($request, Throwable $exception)
 {
+    if ($exception instanceof AuthenticationException) {
+        return $this->unauthorizedResponse('Unauthenticated');
+    }
+    
     if ($exception instanceof \Symfony\Component\HttpKernel\Exception\HttpException) {
         return $this->errorResponse($exception->getMessage(), $exception->getStatusCode());
     }
+
 
     return parent::render($request, $exception);
 }
