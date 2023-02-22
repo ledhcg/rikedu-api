@@ -34,7 +34,10 @@ class AuthController extends Controller
         $input = $request->all();
         $input['password'] = bcrypt($input['password']);
         $user = User::create($input);
-        $data['token'] =  $user->createToken(APPLICATION)->plainTextToken;
+        $data['auth'] = [
+            'access_token' => $user->createToken(APPLICATION)->plainTextToken,
+            'token_type' => 'Bearer'
+        ];
         $data['user'] =  $user;
    
         return $this->successResponse($data, 'User register successfully');
@@ -49,7 +52,10 @@ class AuthController extends Controller
     {
         if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){ 
             $user = Auth::user(); 
-            $data['token'] =  $user->createToken(APPLICATION)->plainTextToken; 
+            $data['auth'] = [
+                'access_token' => $user->createToken(APPLICATION)->plainTextToken,
+                'token_type' => 'Bearer'
+            ];
             $data['user'] =  $user;
    
             return $this->successResponse($data, 'User login successfully');
@@ -57,5 +63,18 @@ class AuthController extends Controller
         else{ 
             return $this->unauthorizedResponse('Unauthorized');
         } 
+    }
+
+    /**
+     * Logout (revoke the token).
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function logout(Request $request)
+    {
+        $request->user()->tokens()->delete();
+
+        return $this->successResponse(null, 'User logged out successfully');
     }
 }
