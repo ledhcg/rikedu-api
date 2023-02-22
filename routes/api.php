@@ -34,8 +34,8 @@ Route::group(['prefix'=>'v1', 'namespace' => 'App\Http\Controllers\API\V1', 'mid
     Route::post('/posts', [PostController::class, 'store']);
     Route::put('/posts/{id}', [PostController::class, 'update']);
     Route::delete('/posts/{id}', [PostController::class, 'destroy']);
-    
-    
+    //Auth
+    Route::post('/logout', [AuthController::class, 'logout']);
 });
 Route::group(['prefix'=>'v1'], function(){
     Route::post('/register', [AuthController::class, 'register']);
