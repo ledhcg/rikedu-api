@@ -8,12 +8,11 @@
     ```sh
     cd website-backend
     ```
-3. Copy file `.env.example` to `.env`
-4. Build and run with docker
+3. Build and run with docker
     ```sh
-    docker-compose up --build
+    docker-compose --env-file .env.docker up --build
     ```
-5. You can see:
+4. You can see:
 
 -   [API] on `127.0.0.1:8000` or `localhost:8000`
 
