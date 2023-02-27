@@ -23,8 +23,8 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www/html
 
-COPY . .
-COPY ./.env.application ./.env
+COPY ./src .
+COPY ./src/.env.example ./.env
 
 
 RUN composer install; \
