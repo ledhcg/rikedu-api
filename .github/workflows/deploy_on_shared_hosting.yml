@@ -22,7 +22,7 @@ jobs:
             - name: Install Dependencies
               run: |
                   cd src
-                  composer update --ignore-platform-reqs
+                  composer install
             - name: Generate key
               run: |
                   cd src
