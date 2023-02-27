@@ -41,12 +41,15 @@ services:
     # API Service
     api:
         build:
+            args:
+                - APP_NAME=${PROJECT_NAME}
+                - DB_HOST=${PMA_HOST}
+                - DB_DATABASE=${MYSQL_DATABASE}
+                - DB_USERNAME=${MYSQL_USER}
+                - DB_PASSWORD=${MYSQL_PASSWORD}
             dockerfile: Dockerfile.api
         command: 'php artisan serve --host=0.0.0.0'
         container_name: ${PROJECT_NAME}-api
-        volumes:
-            - ./:/var/www/api
-            - /var/www/api/vendor
         ports:
             - '8000:8000'
         depends_on:
