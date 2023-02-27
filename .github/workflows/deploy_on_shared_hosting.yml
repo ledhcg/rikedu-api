@@ -18,7 +18,7 @@ jobs:
               run: |
                   php -r "foreach (new DirectoryIterator(__DIR__ . '/.public_html') as \$file) {
                     if (!\$file->isDot() && \$file->isFile()) {
-                      copy(\$file->getPathname(), __DIR__ . '/' . \$file->getFilename());
+                      copy(\$file->getPathname(), __DIR__ . '/src/' . \$file->getFilename());
                     }
                   }"
             - name: Install Dependencies
