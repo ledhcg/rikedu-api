@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\V1\PostController;
 use App\Http\Controllers\API\V1\AuthController;
@@ -25,19 +27,36 @@ use App\Http\Controllers\API\V1\AuthController;
 // Route::post('/posts', [PostController::class, 'store']);
 // Route::put('/posts/{id}', [PostController::class, 'update']);
 // Route::delete('/posts/{id}', [PostController::class, 'destroy']);
-
-Route::group(['prefix'=>'v1', 'namespace' => 'App\Http\Controllers\API\V1', 'middleware' => ['auth:sanctum']], function(){
-    // Route::get('posts', PostController::class);
-    // Route::resource('posts', PostController::class);
-    Route::get('/posts', [PostController::class, 'index']);
-    Route::get('/posts/{id}', [PostController::class, 'show']);
-    Route::post('/posts', [PostController::class, 'store']);
-    Route::put('/posts/{id}', [PostController::class, 'update']);
-    Route::delete('/posts/{id}', [PostController::class, 'destroy']);
-    //Auth
-    Route::post('/logout', [AuthController::class, 'logout']);
+Route::get('/', function () {
+    return new JsonResponse(
+        [
+            'success' => true,
+            'status_code' => Response::HTTP_OK,
+            'message' => 'Hello o.o',
+        ],
+        Response::HTTP_OK
+    );
 });
-Route::group(['prefix'=>'v1'], function(){
+
+Route::group(
+    [
+        'prefix' => 'v1',
+        'namespace' => 'App\Http\Controllers\API\V1',
+        'middleware' => ['auth:sanctum'],
+    ],
+    function () {
+        // Route::get('posts', PostController::class);
+        // Route::resource('posts', PostController::class);
+        Route::get('/posts', [PostController::class, 'index']);
+        Route::get('/posts/{id}', [PostController::class, 'show']);
+        Route::post('/posts', [PostController::class, 'store']);
+        Route::put('/posts/{id}', [PostController::class, 'update']);
+        Route::delete('/posts/{id}', [PostController::class, 'destroy']);
+        //Auth
+        Route::post('/logout', [AuthController::class, 'logout']);
+    }
+);
+Route::group(['prefix' => 'v1'], function () {
     Route::post('/register', [AuthController::class, 'register']);
-    Route::post('/login', [AuthController::class, 'login'])->name('login'); 
+    Route::post('/login', [AuthController::class, 'login'])->name('login');
 });
