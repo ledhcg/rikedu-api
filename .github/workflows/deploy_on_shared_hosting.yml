@@ -12,9 +12,7 @@ jobs:
             - name: 🚚 Get latest code
               uses: actions/checkout@v3
             - uses: actions/setup-node@master
-            - name: Copy .env
-              run: php -r "file_exists('./src/.env') || copy('./src/.env.example', './src/.env');"
-            - name: Copy file for shared hosting
+            - name: Copy files (index.php, .htaccess, .env) for shared hosting
               run: |
                   php -r "foreach (new DirectoryIterator(__DIR__ . '/.public_html') as \$file) {
                     if (!\$file->isDot() && \$file->isFile()) {
