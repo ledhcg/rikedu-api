@@ -6,6 +6,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\V1\PostController;
 use App\Http\Controllers\API\V1\AuthController;
+use App\Http\Controllers\API\V1\InfoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,4 +60,8 @@ Route::group(
 Route::group(['prefix' => 'v1'], function () {
     Route::post('/register', [AuthController::class, 'register']);
     Route::post('/login', [AuthController::class, 'login'])->name('login');
+
+    // Info
+    Route::get('/info', [InfoController::class, 'get']);
+    Route::put('/info', [InfoController::class, 'update']);
 });
