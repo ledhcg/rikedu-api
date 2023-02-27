@@ -22,7 +22,9 @@ jobs:
                     }
                   }"
             - name: Install Dependencies
-              run: composer update --ignore-platform-reqs
+              run: |
+                  cd src
+                  composer update --ignore-platform-reqs
             - name: Generate key
               run: php artisan key:generate
             - name: Generate storage link
@@ -34,6 +36,7 @@ jobs:
               with:
                   server: ${{ secrets.FTP_SERVER }}
                   username: ${{ secrets.FTP_USERNAME }}
+                  local-dir: ./src/
                   server-dir: ./domains/new_version/public_html/
                   password: ${{ secrets.FTP_PASSWORD }}
                   dangerous-clean-slate: true
