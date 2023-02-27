@@ -1,0 +1,46 @@
+on:
+    push:
+        branches:
+            - main
+
+name: 🚀 Deploy website on push
+jobs:
+    web-deploy:
+        name: 🎉 Deploy
+        runs-on: ubuntu-latest
+        steps:
+            - name: 🚚 Get latest code
+              uses: actions/checkout@v3
+            - uses: actions/setup-node@master
+            - name: Copy files (index.php, .htaccess, .env) for shared hosting
+              run: |
+                  php -r "foreach (new DirectoryIterator(__DIR__ . '/.public_html') as \$file) {
+                    if (!\$file->isDot() && \$file->isFile()) {
+                      copy(\$file->getPathname(), __DIR__ . '/src/' . \$file->getFilename());
+                    }
+                  }"
+            - name: Install Dependencies
+              run: |
+                  cd src
+                  composer install
+            - name: Generate key
+              run: |
+                  cd src
+                  php artisan key:generate
+            - name: Generate storage link
+              run: |
+                  cd src
+                  php artisan storage:link
+            - name: Directory Permissions
+              run: |
+                  cd src
+                  chmod -R 777 storage bootstrap/cache
+            - name: 📂 Sync files
+              uses: SamKirkland/FTP-Deploy-Action@4.3.3
+              with:
+                  server: ${{ secrets.FTP_SERVER }}
+                  username: ${{ secrets.FTP_USERNAME }}
+                  local-dir: ./src/
+                  server-dir: ./domains/new_version/public_html/
+                  password: ${{ secrets.FTP_PASSWORD }}
+                  dangerous-clean-slate: true

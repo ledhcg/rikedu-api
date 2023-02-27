@@ -31,19 +31,35 @@ OR
 2. CMD/CTRL + Shift + P -> Format Selection
 ```
 
+Install dev package
+
+```sh
+npm install
+```
+
 ## Outside the Laravel project
 
 -   docker-compose.yaml
 -   Dockerfile.api
+-   .env.docker
+-   package.json
 -   README.md
 -   .prettierrc.json
 
 ### Config file .gitignore (If reinstall Laravel project in this directory)
 
--   Add new line:
+-   Add lines:
 
 ```sh
-mqsql
+/node_modules
+/.fleet
+/.idea
+/.vscode
+# ignore lock file
+package-lock.json
+# docker
+/mysql
+
 ```
 
 ### Config file .env (If reinstall Laravel project in this directory)
@@ -51,7 +67,7 @@ mqsql
 -   Add lines:
 
 ```env
-PROJECT_NAME="BCSD"
+PROJECT_NAME=BCSD
 
 MYSQL_DATABASE=bcsd
 MYSQL_USER=bcsd
