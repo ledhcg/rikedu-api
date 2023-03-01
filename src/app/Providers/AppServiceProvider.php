@@ -13,7 +13,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind(AuthService::class, function ($app) {
+            return new AuthService();
+        });
+        $this->app->bind(PostService::class, function ($app) {
+            return new PostService();
+        });
     }
 
     /**

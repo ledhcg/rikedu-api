@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Policies\API\V1;
+namespace App\Policies;
 
-use App\Models\API\V1\Post;
+use App\Models\Post;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 

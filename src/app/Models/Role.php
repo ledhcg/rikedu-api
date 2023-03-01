@@ -1,7 +1,9 @@
 <?php
-namespace App\Models\API\V1;
+
+namespace App\Models;
+
 use Spatie\Permission\Models\Role as SpatieRole;
-use App\Traits\API\V1\HasUuid;
+use App\Traits\HasUuid;
 
 class Role extends SpatieRole
 {

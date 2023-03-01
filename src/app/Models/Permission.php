@@ -1,7 +1,9 @@
 <?php
-namespace App\Models\API\V1;
+
+namespace App\Models;
+
 use Spatie\Permission\Models\Permission as SpatiePermission;
-use App\Traits\API\V1\HasUuid;
+use App\Traits\HasUuid;
 
 class Permission extends SpatiePermission
 {

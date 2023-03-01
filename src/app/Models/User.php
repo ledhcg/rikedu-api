@@ -7,9 +7,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use App\Traits\API\V1\HasUuid;
-use App\Models\API\V1\Post;
 use Spatie\Permission\Traits\HasRoles;
+use App\Traits\HasUuid;
+
+use App\Models\Post;
 
 class User extends Authenticatable
 {
@@ -20,14 +21,30 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $fillable = ['name', 'email', 'password'];
+    protected $fillable = [
+        'username', 
+        'email', 
+        'password', 
+        'image', 
+        'bio',
+        'first_name', 
+        'last_name', 
+        'gender', 
+        'date_of_birth', 
+        'phone', 
+        'address', 
+        'department',
+    ];
 
     /**
      * The attributes that should be hidden for serialization.
      *
      * @var array<int, string>
      */
-    protected $hidden = ['password', 'remember_token'];
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
 
     /**
      * The attributes that should be cast.
