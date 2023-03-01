@@ -1,47 +1,47 @@
 <?php
 
-namespace App\Http\Controllers\API\V1;
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
 
 define('APPLICATION', 'APP');
-use Illuminate\Http\Request;
-use App\Traits\API\V1\ApiResponse;
+
+use App\Traits\ApiResponse;
+use App\Http\Requests\Auth\LoginRequest;
+use App\Http\Requests\Auth\RegisterRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use Validator;
+use App\Services\AuthService;
 
 class AuthController extends Controller
 {
     use ApiResponse;
+    
+    private $authService;
 
+    public function __construct(AuthService $authService)
+    {
+        $this->authService = $authService;
+    }
     /**
      * Register
      *
      * @return \Illuminate\Http\Response
      */
-    public function register(Request $request)
+    public function register(RegisterRequest $request)
     {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required',
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
-
-        if ($validator->fails()) {
-            $this->validationErrorResponse(
-                'Validation failed',
-                $validator->errors()
-            );
-        }
-
-        $input = $request->all();
+        $input = $request->validated();
         $input['password'] = bcrypt($input['password']);
+        $input['image'] = $this->authService->handleImage($input['image']);
         $user = User::create($input);
+        //Assign role
+        $user->assignRole('user');
+        //Create token
         $data['auth'] = [
             'access_token' => $user->createToken(APPLICATION)->plainTextToken,
             'token_type' => 'Bearer',
         ];
         $data['user'] = $user;
-
         return $this->successResponse($data, 'User register successfully');
     }
 
@@ -50,14 +50,9 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function login(Request $request)
+    public function login(LoginRequest $request)
     {
-        if (
-            Auth::attempt([
-                'email' => $request->email,
-                'password' => $request->password,
-            ])
-        ) {
+        if ($this->authService->attemptLogin($request->validated())) {
             $user = Auth::user();
             $data['auth'] = [
                 'access_token' => $user->createToken(APPLICATION)
@@ -65,6 +60,9 @@ class AuthController extends Controller
                 'token_type' => 'Bearer',
             ];
             $data['user'] = $user;
+            $data['role'] = $user->getRoleNames();
+            // Permissions inherited from the user's roles
+            $data['permission'] = $user->getPermissionsViaRoles();
 
             return $this->successResponse($data, 'User login successfully');
         } else {

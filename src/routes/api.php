@@ -4,9 +4,10 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\API\V1\PostController;
-use App\Http\Controllers\API\V1\AuthController;
-use App\Http\Controllers\API\V1\InfoController;
+use App\Http\Controllers\InfoController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\PostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,12 +23,6 @@ use App\Http\Controllers\API\V1\InfoController;
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
-
-// Route::get('/posts', [PostController::class, 'index']);
-// Route::get('/posts/{id}', [PostController::class, 'show']);
-// Route::post('/posts', [PostController::class, 'store']);
-// Route::put('/posts/{id}', [PostController::class, 'update']);
-// Route::delete('/posts/{id}', [PostController::class, 'destroy']);
 Route::get('/', function () {
     return new JsonResponse(
         [
@@ -39,29 +34,32 @@ Route::get('/', function () {
     );
 });
 
+
+Route::group(['prefix' => 'v1'], function () {
+    Route::post('/register', [AuthController::class, 'register']);
+    Route::post('/login', [AuthController::class, 'login']);
+
+    //Info
+    Route::get('/info', [InfoController::class, 'index']);
+});
+
 Route::group(
     [
         'prefix' => 'v1',
-        'namespace' => 'App\Http\Controllers\API\V1',
+        'namespace' => 'App\Http\Controllers',
         'middleware' => ['auth:sanctum'],
     ],
     function () {
-        // Route::get('posts', PostController::class);
-        // Route::resource('posts', PostController::class);
+        Route::post('/logout', [AuthController::class, 'logout']);
+
+        //Post
         Route::get('/posts', [PostController::class, 'index']);
         Route::get('/posts/{id}', [PostController::class, 'show']);
         Route::post('/posts', [PostController::class, 'store']);
         Route::put('/posts/{id}', [PostController::class, 'update']);
         Route::delete('/posts/{id}', [PostController::class, 'destroy']);
-        //Auth
-        Route::post('/logout', [AuthController::class, 'logout']);
+
+        //User
+        Route::get('/users', [UserController::class, 'index']);
     }
 );
-Route::group(['prefix' => 'v1'], function () {
-    Route::post('/register', [AuthController::class, 'register']);
-    Route::post('/login', [AuthController::class, 'login'])->name('login');
-
-    // Info
-    Route::get('/info', [InfoController::class, 'get']);
-    Route::put('/info', [InfoController::class, 'update']);
-});

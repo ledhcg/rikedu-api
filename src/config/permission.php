@@ -14,8 +14,7 @@ return [
          */
 
         // 'permission' => Spatie\Permission\Models\Permission::class,
-        'permission' => App\Models\API\V1\Permission::class,
-
+        'permission' => App\Models\Permission::class,
 
         /*
          * When using the "HasRoles" trait from this package, we need to know which
@@ -27,7 +26,7 @@ return [
          */
 
         // 'role' => Spatie\Permission\Models\Role::class,
-        'role' => App\Models\API\V1\Role::class,
+        'role' => App\Models\Role::class,
 
 
     ],
@@ -92,6 +91,7 @@ return [
 
         // 'model_morph_key' => 'model_id',
         'model_morph_key' => 'model_uuid',
+
 
         /*
          * Change this if you want to use the teams feature and your related model's
