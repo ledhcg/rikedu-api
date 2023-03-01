@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\API\V1;
+namespace App\Http\Requests\Post;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
-use App\Traits\API\V1\ApiResponse;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use App\Traits\ApiResponse;
 
 class StorePostRequest extends FormRequest
 {

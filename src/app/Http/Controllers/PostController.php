@@ -1,18 +1,33 @@
 <?php
 
-namespace App\Http\Controllers\API\V1;
+namespace App\Http\Controllers;
 
-use App\Models\API\V1\Post;
-use App\Http\Requests\API\V1\StorePostRequest;
-use App\Http\Requests\API\V1\UpdatePostRequest;
-use App\Http\Resources\API\V1\PostCollection;
-use App\Http\Resources\API\V1\PostResource;
-use App\Traits\API\V1\ApiResponse;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+
+use App\Traits\ApiResponse;
+
+use App\Models\Post;
+
+use App\Http\Requests\Post\StorePostRequest;
+use App\Http\Requests\Post\UpdatePostRequest;
+
+use App\Http\Resources\PostCollection;
+use App\Http\Resources\PostResource;
+
+use App\Services\PostService;
 
 class PostController extends Controller
 {
     use ApiResponse;
+
+    private $postService;
+
+    public function __construct(PostService $postService)
+    {
+        $this->postService = $postService;
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -25,16 +40,6 @@ class PostController extends Controller
             new PostCollection($posts),
             'Posts retrieved successfully'
         );
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -69,22 +74,16 @@ class PostController extends Controller
             return $this->notFoundResponse('Post not found');
         }
 
+        if (!Auth::user()->can('view', $post)) {
+            return $this->unauthorizedResponse('You do not own this post.');
+        }
+
         return $this->successResponse(
             new PostResource($post),
             'Post retrieved successfully'
         );
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\API\V1\Post  $post
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Post $post)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -96,9 +95,12 @@ class PostController extends Controller
     public function update(UpdatePostRequest $request, $id)
     {
         $post = Post::find($id);
-
         if (!$post) {
             return $this->notFoundResponse('Post not found');
+        }
+
+        if (!Auth::user()->can('update', $post)) {
+            return $this->unauthorizedResponse('You do not own this post.');
         }
 
         $validated = $request->validated();
