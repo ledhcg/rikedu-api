@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\About;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\Role;
@@ -20,23 +21,21 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // Create roles
+        // 1.Create roles
         $superAdminRole = Role::create(['name' => 'super admin']);
         $adminRole = Role::create(['name' => 'admin']);
         $userRole = Role::create(['name' => 'user']);
 
-        // Create permissions
+        // 2.Create permissions
+        // 2.1 Post
         $anythingPermission = Permission::create(['name' => 'anything']);
-
         $createPostsPermission = Permission::create(['name' => 'create posts']);
-
         $updateOwnPostsPermission = Permission::create([
             'name' => 'update own posts',
         ]);
         $deleteOwnPostsPermission = Permission::create([
             'name' => 'delete own posts',
         ]);
-
         $updateAnyPostPermission = Permission::create([
             'name' => 'update any post',
         ]);
@@ -44,18 +43,43 @@ class DatabaseSeeder extends Seeder
             'name' => 'delete any post',
         ]);
 
-        // Assign permissions to roles
+        // 2.2 About
+        $createAboutsPermission = Permission::create(['name' => 'create abouts']);
+        $updateOwnAboutsPermission = Permission::create([
+            'name' => 'update own abouts',
+        ]);
+        $deleteOwnAboutsPermission = Permission::create([
+            'name' => 'delete own abouts',
+        ]);
+        $updateAnyAboutPermission = Permission::create([
+            'name' => 'update any about',
+        ]);
+        $deleteAnyAboutPermission = Permission::create([
+            'name' => 'delete any about',
+        ]);
+
+        // 3. Assign permissions to roles
         $superAdminRole->givePermissionTo($anythingPermission);
 
+        // 3.1 Post
         $adminRole->givePermissionTo($createPostsPermission);
         $adminRole->givePermissionTo($updateAnyPostPermission);
         $adminRole->givePermissionTo($deleteAnyPostPermission);
 
         $userRole->givePermissionTo($updateOwnPostsPermission);
         $userRole->givePermissionTo($deleteOwnPostsPermission);
-        
+
+
+        // 3.2 About
+        $adminRole->givePermissionTo($createAboutsPermission);
+        $adminRole->givePermissionTo($updateAnyAboutPermission);
+        $adminRole->givePermissionTo($deleteAnyAboutPermission);
+
+        $userRole->givePermissionTo($updateOwnAboutsPermission);
+        $userRole->givePermissionTo($deleteOwnAboutsPermission);
+
         $faker = Faker::create();
-        
+
         User::factory()->hasPosts(25)->create([
             'username' => 'admin',
             'email' => 'admin@ledinhcuong.com',
@@ -74,7 +98,7 @@ class DatabaseSeeder extends Seeder
             'email_verified_at' => now(),
             'remember_token' => Str::random(10),
         ]);
-        
+
 
         User::factory()->hasPosts(25)->create([
             'username' => 'user',
@@ -94,9 +118,11 @@ class DatabaseSeeder extends Seeder
             'email_verified_at' => now(),
             'remember_token' => Str::random(10),
         ]);
-        
+
         User::factory(5)->superAdmin()->hasPosts(25)->create();
         User::factory(50)->admin()->hasPosts(25)->create();
         User::factory(50)->hasPosts(25)->create();
+
+        User::factory(10)->admin()->hasAbouts(20)->create();
     }
 }

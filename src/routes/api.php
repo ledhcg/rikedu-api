@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AboutController;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
@@ -61,5 +62,12 @@ Route::group(
 
         //User
         Route::get('/users', [UserController::class, 'index']);
+
+        //About
+        Route::get('/abouts', [AboutController::class, 'index']);
+        Route::get('/abouts/{id}', [AboutController::class, 'show']);
+        Route::post('/abouts', [AboutController::class, 'store']);
+        Route::put('/abouts/{id}', [AboutController::class, 'update']);
+        Route::delete('/abouts/{id}', [AboutController::class, 'destroy']);
     }
 );
