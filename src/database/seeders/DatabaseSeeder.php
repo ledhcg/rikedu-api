@@ -5,12 +5,12 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\About;
 use Illuminate\Database\Seeder;
-use App\Models\User;
-use App\Models\Role;
-use App\Models\Permission;
-use Faker\Factory as Faker;
-use Illuminate\Support\Str;
 
+use Database\Seeders\Default\RoleAndPermissionSeeder;
+use Database\Seeders\Default\InfoSeeder;
+
+use Database\Seeders\Test\CategorySeeder;
+use Database\Seeders\Test\UserSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+      
         // 1.Create roles
         $superAdminRole = Role::create(['name' => 'super admin']);
         $adminRole = Role::create(['name' => 'admin']);
@@ -124,5 +125,14 @@ class DatabaseSeeder extends Seeder
         User::factory(50)->hasPosts(25)->create();
 
         User::factory(10)->admin()->hasAbouts(20)->create();
+      
+        $this->call([
+            //Default
+            InfoSeeder::class,
+            RoleAndPermissionSeeder::class,
+            //Test
+            CategorySeeder::class,
+            UserSeeder::class,
+        ]);
     }
 }
