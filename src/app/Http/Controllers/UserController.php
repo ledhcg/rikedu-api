@@ -9,10 +9,19 @@ use App\Http\Requests\User\StoreUserRequest;
 use App\Http\Requests\User\UpdateUserRequest;
 use App\Http\Resources\UserCollection;
 use App\Http\Resources\UserResource;
+use App\Services\UserService;
+use App\Contracts\ModeQuery;
+use App\Contracts\StoragePath;
 
 class UserController extends Controller
 {
     use ApiResponse;
+    private $userService;
+
+    public function __construct(UserService $userService)
+    {
+        $this->userService = $userService;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -21,6 +30,8 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $users = User::paginate($request->get('per_page', 15));
+        $users->storagePathImage = StoragePath::USER_IMAGE;
+        $users->modeQuery = ModeQuery::COLLECTION;
         return $this->successResponse(
             new UserCollection($users),
             'Users retrieved successfully'

@@ -3,6 +3,8 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Str;
+use App\Contracts\ModeQuery;
 
 class UserResource extends JsonResource
 {
@@ -14,19 +16,55 @@ class UserResource extends JsonResource
      */
     public function toArray($request)
     {
-        return [
-            'id' => $this->id,
-            'username' => $this->username,
-            'email' => $this->email,
-            'full_name' => $this->first_name . " " . $this->last_name,
-            'image' => $this->image,
-            'gender' => $this->gender,
-            'date_of_birth' => $this->date_of_birth,
-            'phone' => $this->phone,
-            'address' => $this->address,
-            'department' => $this->department,
-            'role' => $this->getRoleNames(),
-            'permission'=> $this->getPermissionsViaRoles()->pluck('name')
-        ];
+        //Check if "image" is a url or not
+        $this->storagePathImage = Str::contains($this->image, 'http')
+            ? ''
+            : $this->storagePathImage;
+
+        switch ($this->modeQuery) {
+            case ModeQuery::COLLECTION:
+                return [
+                    'user' => [
+                        'id' => $this->id,
+                        'username' => $this->username,
+                        'email' => $this->email,
+                        'full_name' =>
+                            $this->first_name . ' ' . $this->last_name,
+                        'image' => asset(
+                            $this->storagePathImage . $this->image
+                        ),
+                        'gender' => $this->gender,
+                        'date_of_birth' => $this->date_of_birth,
+                        'phone' => $this->phone,
+                        'address' => $this->address,
+                        'department' => $this->department,
+                    ],
+                ];
+            case ModeQuery::SINGLE:
+                return [
+                    'authentication' => $this->authentication,
+                    'authorization' => [
+                        'role' => $this->getRoleNames(),
+                        'permission' => $this->getPermissionsViaRoles()->pluck(
+                            'name'
+                        ),
+                    ],
+                    'user' => [
+                        'id' => $this->id,
+                        'username' => $this->username,
+                        'email' => $this->email,
+                        'full_name' =>
+                            $this->first_name . ' ' . $this->last_name,
+                        'image' => asset(
+                            $this->storagePathImage . $this->image
+                        ),
+                        'gender' => $this->gender,
+                        'date_of_birth' => $this->date_of_birth,
+                        'phone' => $this->phone,
+                        'address' => $this->address,
+                        'department' => $this->department,
+                    ],
+                ];
+        }
     }
 }

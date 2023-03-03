@@ -16,8 +16,14 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(AuthService::class, function ($app) {
             return new AuthService();
         });
+        $this->app->bind(UserService::class, function ($app) {
+            return new UserService();
+        });
         $this->app->bind(PostService::class, function ($app) {
             return new PostService();
+        });
+        $this->app->bind(InfoService::class, function ($app) {
+            return new InfoService();
         });
     }
 
