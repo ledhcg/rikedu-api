@@ -61,6 +61,7 @@ class UserSeeder extends Seeder
                 'remember_token' => Str::random(10),
             ]);
 
+        // User has posts pages
         User::factory(5)
             ->superAdmin()
             ->hasPosts(25)
@@ -71,6 +72,12 @@ class UserSeeder extends Seeder
             ->create();
         User::factory(50)
             ->hasPosts(25)
+            ->create();
+
+        // User has abouts pages
+        User::factory(10)
+            ->admin()
+            ->hasAbouts(20)
             ->create();
     }
 }
