@@ -3,25 +3,30 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
-define('APPLICATION', 'APP');
-
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use App\Traits\ApiResponse;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
+use App\Http\Resources\UserResource;
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
 use App\Services\AuthService;
+use App\Services\UserService;
+use App\Contracts\ModeQuery;
+use App\Contracts\StoragePath;
 
 class AuthController extends Controller
 {
     use ApiResponse;
-    
-    private $authService;
 
-    public function __construct(AuthService $authService)
-    {
+    private $authService, $userService;
+
+    public function __construct(
+        AuthService $authService,
+        UserService $userService
+    ) {
         $this->authService = $authService;
+        $this->userService = $userService;
     }
     /**
      * Register
@@ -32,17 +37,28 @@ class AuthController extends Controller
     {
         $input = $request->validated();
         $input['password'] = bcrypt($input['password']);
-        $input['image'] = $this->authService->handleImage($input['image']);
+        $input['image'] = $this->userService->handleImage(
+            $input['image'],
+            StoragePath::USER_IMAGE
+        );
+
         $user = User::create($input);
         //Assign role
         $user->assignRole('user');
         //Create token
-        $data['auth'] = [
-            'access_token' => $user->createToken(APPLICATION)->plainTextToken,
+        $user->authentication = [
+            'access_token' => $user->createToken(AuthService::TOKEN_NAME)
+                ->plainTextToken,
             'token_type' => 'Bearer',
         ];
-        $data['user'] = $user;
-        return $this->successResponse($data, 'User register successfully');
+
+        $user->storagePathImage = StoragePath::USER_IMAGE;
+        $user->modeQuery = ModeQuery::SINGLE;
+
+        return $this->successResponse(
+            new UserResource($user),
+            'User register successfully'
+        );
     }
 
     /**
@@ -54,17 +70,19 @@ class AuthController extends Controller
     {
         if ($this->authService->attemptLogin($request->validated())) {
             $user = Auth::user();
-            $data['auth'] = [
-                'access_token' => $user->createToken(APPLICATION)
+            $user->authentication = [
+                'access_token' => $user->createToken(AuthService::TOKEN_NAME)
                     ->plainTextToken,
                 'token_type' => 'Bearer',
             ];
-            $data['user'] = $user;
-            $data['role'] = $user->getRoleNames();
-            // Permissions inherited from the user's roles
-            $data['permission'] = $user->getPermissionsViaRoles();
 
-            return $this->successResponse($data, 'User login successfully');
+            $user->storagePathImage = StoragePath::USER_IMAGE;
+            $user->modeQuery = ModeQuery::SINGLE;
+
+            return $this->successResponse(
+                new UserResource($user),
+                'User login successfully'
+            );
         } else {
             return $this->unauthorizedResponse('Unauthorized');
         }
