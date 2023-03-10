@@ -20,7 +20,6 @@ return new class extends Migration {
             $table->json('keywords');
             $table->json('contact');
             $table->json('image');
-            $table->timestamp('last_modified')->useCurrent();
             $table->timestamps();
         });
     }

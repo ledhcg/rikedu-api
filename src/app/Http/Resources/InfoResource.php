@@ -21,10 +21,8 @@ class InfoResource extends JsonResource
             'keywords' => $this->keywords,
             'contact' => $this->contact,
             'image' => [
-                'thumbnail' => asset(
-                    $this->storagePathThumbnail . $this->image->thumbnail
-                ),
-                'cover' => asset($this->storagePathCover . $this->image->cover),
+                'thumbnail_url' => $this->image_thumbnail_url,
+                'cover_url' => $this->image_cover_url,
             ],
         ];
     }

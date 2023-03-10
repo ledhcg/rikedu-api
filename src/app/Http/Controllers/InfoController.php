@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\Auth;
 use App\Traits\ApiResponse;
 use App\Models\Info;
 use App\Http\Requests\Info\UpdateInfoRequest;
@@ -25,8 +26,6 @@ class InfoController extends Controller
     public function index()
     {
         $info = Info::firstOrFail();
-        $info->storagePathThumbnail = StoragePath::INFO_THUMBNAIL;
-        $info->storagePathCover = StoragePath::INFO_COVER;
         return $this->successResponse(
             new InfoResource($info),
             'Info retrieved successfully'
@@ -42,5 +41,46 @@ class InfoController extends Controller
      */
     public function update(UpdateInfoRequest $request, Info $info)
     {
+        $info = Info::firstOrFail();
+        if (!$info) {
+            return $this->notFoundResponse('Info not found');
+        }
+
+        if (!Auth::user()->can('anything', $info)) {
+            return $this->unauthorizedResponse('You do not own this content.');
+        }
+
+        $validated = $request->validated();
+        $validated['contact'] = [
+            'address' => [
+                'vi' => $validated['contact_address_vi'],
+                'ru' => $validated['contact_address_ru'],
+            ],
+            'phone' => $validated['contact_phone'],
+            'contact_email' => $validated['contact_email'],
+            'social' => [
+                'facebook' => $validated['contact_social_facebook'],
+                'telegram' => $validated['contact_social_telegram'],
+                'youtube' => $validated['contact_social_youtube'],
+            ],
+        ];
+        $validated['image'] = [
+            'thumbnail' => $this->infoService->processImageThumbnail(
+                $validated['image_thumbnail'],
+                StoragePath::INFO_IMAGE_THUMBNAIL
+            ),
+            'cover' => $this->infoService->processImageCover(
+                $validated['image_cover'],
+                StoragePath::INFO_IMAGE_COVER
+            ),
+        ];
+
+        $info->fill($validated);
+        $info->save();
+
+        return $this->successResponse(
+            new InfoResource($info),
+            'Info updated successfully'
+        );
     }
 }
