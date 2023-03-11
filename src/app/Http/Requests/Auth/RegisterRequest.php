@@ -33,57 +33,32 @@ class RegisterRequest extends FormRequest
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('users')->ignore($this->user)
+                Rule::unique('users')->ignore($this->user),
             ],
             'email' => [
                 'required',
                 'string',
                 'email',
                 'max:255',
-                Rule::unique('users')->ignore($this->user)
+                Rule::unique('users')->ignore($this->user),
             ],
-            'password' => [
-                'required',
-                'string',
-                'min:8',
-                'confirmed'
-            ],
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
             'bio' => 'nullable|max:500',
-            'first_name' => [
-                'required',
-                'string',
-                'max:255'
-            ],
-            'last_name' => [
-                'required',
-                'string',
-                'max:255'
-            ],
-            'gender' => [
-                'required',
-                Rule::in(['Male', 'Female', 'Other'])
-            ],
+            'first_name' => ['required', 'string', 'max:255'],
+            'last_name' => ['required', 'string', 'max:255'],
+            'gender' => ['required', Rule::in(['Male', 'Female', 'Other'])],
             'date_of_birth' => [
                 'required',
                 'date',
-                'before_or_equal:' . now()->subYears(16)->format('Y-m-d')
+                'before_or_equal:' .
+                now()
+                    ->subYears(16)
+                    ->format('Y-m-d'),
             ],
-            'phone' => [
-                'nullable',
-                'string',
-                'max:255'
-            ],
-            'address' => [
-                'nullable',
-                'string',
-                'max:255'
-            ],
-            'department' => [
-                'nullable',
-                'string',
-                'max:255'
-            ],
+            'phone' => ['nullable', 'string', 'max:255'],
+            'address' => ['nullable', 'string', 'max:255'],
+            'department' => ['nullable', 'string', 'max:255'],
         ];
     }
 
