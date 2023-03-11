@@ -15,7 +15,6 @@ class UserCollection extends ResourceCollection
     public function toArray($request)
     {
         $users = $this->collection->map(function ($user) {
-            $user->storagePathImage = $this->storagePathImage;
             $user->modeQuery = $this->modeQuery;
             return $user;
         });

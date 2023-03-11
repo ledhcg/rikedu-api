@@ -17,14 +17,22 @@ class PostResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
-            'user_id' => $this->user_id,
-            'content' => $this->content,
-            'summary' => $this->summary,
-            'thumbnail' => $this->thumbnail,
             'slug' => $this->slug,
-            'published' => $this->published,
+            'summary' => $this->summary,
+            'category' => $this->category->pluck('title')->implode(''),
+            'tag' => $this->tags->pluck('name'),
+            'user' => [
+                'username' => $this->user->username,
+                'email' => $this->user->email,
+                'full_name' => $this->user->full_name,
+                'avatar_url' => $this->user->avatar_url,
+            ],
+            'content' => $this->content,
+            'image' => [
+                'thumbnail_url' => $this->image_thumbnail_url,
+                'cover_url' => $this->image_cover_url,
+            ],
             'published_at' => $this->published_at,
-            'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
     }

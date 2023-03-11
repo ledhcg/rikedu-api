@@ -20,7 +20,10 @@ class AboutResource extends JsonResource
             'user_id' => $this->user_id,
             'content' => $this->content,
             'summary' => $this->summary,
-            'thumbnail' => $this->thumbnail,
+            'image' => [
+                'thumbnail_url' => $this->image_thumbnail_url,
+                'cover_url' => $this->image_cover_url,
+            ],
             'slug' => $this->slug,
             'published_at' => $this->published_at,
             'created_at' => $this->created_at,
