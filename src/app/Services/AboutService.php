@@ -1,11 +1,14 @@
 <?php
 namespace App\Services;
+use App\Traits\ApiResponse;
+use App\Services\ImageService;
 
 class AboutService
 {
-    public function getData()
+    use ApiResponse;
+    protected $imageService;
+    public function __construct(ImageService $imageService)
     {
-        // Logic
-        return ['foo', 'bar', 'baz'];
+        $this->imageService = $imageService;
     }
 }
