@@ -33,4 +33,5 @@ RUN composer install; \
     sed -i "s/DB_DATABASE=.*/DB_DATABASE=$DB_DATABASE/" .env; \
     sed -i "s/DB_USERNAME=.*/DB_USERNAME=$DB_USERNAME/" .env; \
     sed -i "s/DB_PASSWORD=.*/DB_PASSWORD=$DB_PASSWORD/" .env; \
-    php artisan key:generate;
+    php artisan key:generate; \
+    php artisan storage:link;
