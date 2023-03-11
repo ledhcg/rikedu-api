@@ -25,8 +25,6 @@ class AboutController extends Controller
         $this->aboutService = $aboutService;
     }
 
-
-
     /**
      * Display a listing of the resource.
      *
@@ -35,7 +33,10 @@ class AboutController extends Controller
     public function index(Request $request)
     {
         $abouts = About::with('user')->paginate($request->get('per_page', 15));
-        return $this->successResponse(new AboutCollection($abouts), 'Abouts retrieved successfully');
+        return $this->successResponse(
+            new AboutCollection($abouts),
+            'Abouts retrieved successfully'
+        );
     }
 
     /**
@@ -79,8 +80,6 @@ class AboutController extends Controller
             'About retrieved successfully'
         );
     }
-
-
 
     /**
      * Update the specified resource in storage.
