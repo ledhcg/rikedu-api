@@ -2,7 +2,6 @@
 namespace App\Services;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\ImageManagerStatic as Image;
-use App\Traits\ApiResponse;
 
 class ImageService
 {
@@ -17,8 +16,6 @@ class ImageService
     const TYPE_PROFILE = 'profile';
     const TYPE_COVER = 'cover';
     const TYPE_THUMBNAIL = 'thumbnail';
-
-    use ApiResponse;
 
     public function resizeImage($image, $width, $height, $extension, $quality)
     {
@@ -49,7 +46,7 @@ class ImageService
 
         switch ($type) {
             case self::TYPE_PROFILE:
-                return $this->$this->resizeImage(
+                return $this->resizeImage(
                     $image,
                     $side_square,
                     $side_square,
