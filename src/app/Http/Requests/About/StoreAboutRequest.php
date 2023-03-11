@@ -33,7 +33,7 @@ class StoreAboutRequest extends FormRequest
             'slug' => 'required',
             'summary' => 'required',
             'content' => 'required|string',
-            'thumbnail' => 'required|url',
+            'image' => 'required',
             'published_at' => 'required',
         ];
     }
