@@ -4,8 +4,9 @@ namespace App\Contracts;
 
 interface ModeQuery
 {
-    const BASE = 'base';
-    const FULL = 'full';
-    const SINGLE = 'single';
-    const COLLECTION = 'collection';
+    const MODEL_SINGLE = 'single';
+    const MODEL_COLLECTION = 'collection';
+
+    const GROUP_BY_CATEGORY = 'category';
+    const GROUP_BY_TAG = 'tag';
 }
