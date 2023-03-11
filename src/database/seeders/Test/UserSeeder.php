@@ -20,15 +20,16 @@ class UserSeeder extends Seeder
         $faker = Faker::create();
 
         User::factory()
+            ->superAdmin()
             ->hasPosts(25)
             ->create([
-                'username' => 'admin',
-                'email' => 'admin@ledinhcuong.com',
+                'username' => 'superadmin',
+                'email' => 'superadmin@bcsdnga.com',
                 'password' => bcrypt('password'),
                 'first_name' => $faker->firstName,
                 'last_name' => $faker->lastName,
                 'bio' => $faker->sentence(),
-                'image' => $faker->imageUrl(640, 480),
+                'image' => 'https://picsum.photos/seed/avatar/600/600.webp',
                 'gender' => $faker->randomElement(['Male', 'Female', 'Other']),
                 'date_of_birth' => $faker->date(),
                 'phone' => $faker->phoneNumber,
@@ -41,15 +42,17 @@ class UserSeeder extends Seeder
             ]);
 
         User::factory()
+            ->admin()
             ->hasPosts(25)
+            ->hasAbouts(5)
             ->create([
-                'username' => 'user',
-                'email' => 'user@ledinhcuong.com',
+                'username' => 'admin',
+                'email' => 'admin@bcsdnga.com',
                 'password' => bcrypt('password'),
                 'first_name' => $faker->firstName,
                 'last_name' => $faker->lastName,
                 'bio' => $faker->sentence(),
-                'image' => $faker->imageUrl(640, 480),
+                'image' => 'https://picsum.photos/seed/avatar/600/600.webp',
                 'gender' => $faker->randomElement(['Male', 'Female', 'Other']),
                 'date_of_birth' => $faker->date(),
                 'phone' => $faker->phoneNumber,
@@ -61,23 +64,36 @@ class UserSeeder extends Seeder
                 'remember_token' => Str::random(10),
             ]);
 
-        // User has posts pages
+        User::factory()
+            ->user()
+            ->hasPosts(25)
+            ->create([
+                'username' => 'user',
+                'email' => 'user@bcsdnga.com',
+                'password' => bcrypt('password'),
+                'first_name' => $faker->firstName,
+                'last_name' => $faker->lastName,
+                'bio' => $faker->sentence(),
+                'image' => 'https://picsum.photos/seed/avatar/600/600.webp',
+                'gender' => $faker->randomElement(['Male', 'Female', 'Other']),
+                'date_of_birth' => $faker->date(),
+                'phone' => $faker->phoneNumber,
+                'address' => $faker->address,
+                'department' => $faker->word,
+                'active' => $faker->boolean(),
+                'last_login' => $faker->dateTimeBetween('-1 day', 'now'),
+                'email_verified_at' => now(),
+                'remember_token' => Str::random(10),
+            ]);
+
         User::factory(5)
-            ->superAdmin()
-            ->hasPosts(25)
-            ->create();
-        User::factory(50)
             ->admin()
-            ->hasPosts(25)
-            ->create();
-        User::factory(50)
             ->hasPosts(25)
             ->create();
 
-        // User has abouts pages
-        User::factory(10)
-            ->admin()
-            ->hasAbouts(20)
+        User::factory(50)
+            ->user()
+            ->hasPosts(25)
             ->create();
     }
 }

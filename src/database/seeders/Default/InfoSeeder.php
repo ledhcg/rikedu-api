@@ -37,8 +37,8 @@ class InfoSeeder extends Seeder
                 ],
             ],
             'image' => [
-                'thumbnail' => 'thumbnail.webp',
-                'cover' => 'cover.webp',
+                'thumbnail' => 'https://picsum.photos/1200/630.webp',
+                'cover' => 'https://picsum.photos/1600/900.webp',
             ],
         ]);
     }
