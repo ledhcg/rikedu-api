@@ -51,19 +51,7 @@ class InfoController extends Controller
         }
 
         $validated = $request->validated();
-        $validated['contact'] = [
-            'address' => [
-                'vi' => $validated['contact_address_vi'],
-                'ru' => $validated['contact_address_ru'],
-            ],
-            'phone' => $validated['contact_phone'],
-            'contact_email' => $validated['contact_email'],
-            'social' => [
-                'facebook' => $validated['contact_social_facebook'],
-                'telegram' => $validated['contact_social_telegram'],
-                'youtube' => $validated['contact_social_youtube'],
-            ],
-        ];
+
         $validated['image'] = [
             'thumbnail' => $this->infoService->processImageThumbnail(
                 $validated['image_thumbnail'],

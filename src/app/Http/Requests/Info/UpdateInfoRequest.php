@@ -33,13 +33,10 @@ class UpdateInfoRequest extends FormRequest
             'author' => 'required|string',
             'keywords' => 'required|string',
             //Contact
-            'contact_address_vi' => 'required|string',
-            'contact_address_ru' => 'required|string',
-            'contact_phone' => 'required|string',
-            'contact_email' => 'required|string',
-            'contact_social_facebook' => 'required|url',
-            'contact_social_telegram' => 'required|url',
-            'contact_social_youtube' => 'required|url',
+            'contact.address.*' => 'required|string',
+            'contact.phone' => 'required|string',
+            'contact.email' => 'required|string',
+            'contact.social.*' => 'required|url',
             //Image
             'image_thumbnail' => 'required|image',
             'image_cover' => 'required|image',
