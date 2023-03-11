@@ -6,11 +6,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Storage;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use App\Traits\HasUuid;
 
 use App\Models\Post;
+use App\Contracts\StoragePath;
 
 class User extends Authenticatable
 {
@@ -41,10 +43,23 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
+    protected $hidden = ['password', 'remember_token'];
+
+    public function getAvatarUrlAttribute()
+    {
+        //Check if $image is a URL or not, and then return data accordingly
+        $image = $this->attributes['image'];
+        return filter_var($image, FILTER_VALIDATE_URL)
+            ? $image
+            : asset(Storage::url(StoragePath::USER_IMAGE_AVATAR . $image));
+    }
+
+    public function getFullNameAttribute()
+    {
+        return $this->attributes['first_name'] .
+            ' ' .
+            $this->attributes['last_name'];
+    }
 
     /**
      * The attributes that should be cast.
