@@ -16,23 +16,15 @@ class UserResource extends JsonResource
      */
     public function toArray($request)
     {
-        //Check if "image" is a url or not
-        $this->storagePathImage = Str::contains($this->image, 'http')
-            ? ''
-            : $this->storagePathImage;
-
         switch ($this->modeQuery) {
-            case ModeQuery::COLLECTION:
+            case ModeQuery::MODEL_COLLECTION:
                 return [
                     'user' => [
                         'id' => $this->id,
                         'username' => $this->username,
                         'email' => $this->email,
-                        'full_name' =>
-                            $this->first_name . ' ' . $this->last_name,
-                        'image' => asset(
-                            $this->storagePathImage . $this->image
-                        ),
+                        'full_name' => $this->full_name,
+                        'avatar_url' => $this->avatar_url,
                         'gender' => $this->gender,
                         'date_of_birth' => $this->date_of_birth,
                         'phone' => $this->phone,
@@ -40,7 +32,7 @@ class UserResource extends JsonResource
                         'department' => $this->department,
                     ],
                 ];
-            case ModeQuery::SINGLE:
+            case ModeQuery::MODEL_SINGLE:
                 return [
                     'authentication' => $this->authentication,
                     'authorization' => [
@@ -53,11 +45,8 @@ class UserResource extends JsonResource
                         'id' => $this->id,
                         'username' => $this->username,
                         'email' => $this->email,
-                        'full_name' =>
-                            $this->first_name . ' ' . $this->last_name,
-                        'image' => asset(
-                            $this->storagePathImage . $this->image
-                        ),
+                        'full_name' => $this->full_name,
+                        'avatar_url' => $this->avatar_url,
                         'gender' => $this->gender,
                         'date_of_birth' => $this->date_of_birth,
                         'phone' => $this->phone,

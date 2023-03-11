@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AboutController;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
@@ -8,7 +9,7 @@ use App\Http\Controllers\InfoController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PostController;
-
+use App\Http\Controllers\CategoryAndTagController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,13 +36,36 @@ Route::get('/', function () {
     );
 });
 
-
 Route::group(['prefix' => 'v1'], function () {
     Route::post('/register', [AuthController::class, 'register']);
     Route::post('/login', [AuthController::class, 'login']);
 
     //Info
     Route::get('/info', [InfoController::class, 'index']);
+
+    //About
+    Route::get('/abouts', [AboutController::class, 'index']);
+    Route::get('/abouts/{id}', [AboutController::class, 'show']);
+
+    //User
+    Route::get('/users', [UserController::class, 'index']);
+
+    //Post
+    Route::get('/posts', [PostController::class, 'list']);
+    Route::get('/{group}&slug={slug}/posts', [
+        PostController::class,
+        'listGroup',
+    ]);
+    Route::get('/posts/{id}', [PostController::class, 'show']);
+
+    //Category
+    Route::get('/categories', [
+        CategoryAndTagController::class,
+        'listCategories',
+    ]);
+
+    //Tag
+    Route::get('/tags', [CategoryAndTagController::class, 'listTags']);
 });
 
 Route::group(
@@ -54,13 +78,16 @@ Route::group(
         Route::post('/logout', [AuthController::class, 'logout']);
 
         //Post
-        Route::get('/posts', [PostController::class, 'index']);
-        Route::get('/posts/{id}', [PostController::class, 'show']);
         Route::post('/posts', [PostController::class, 'store']);
         Route::put('/posts/{id}', [PostController::class, 'update']);
         Route::delete('/posts/{id}', [PostController::class, 'destroy']);
 
-        //User
-        Route::get('/users', [UserController::class, 'index']);
+        //About
+        Route::post('/abouts', [AboutController::class, 'store']);
+        Route::put('/abouts/{id}', [AboutController::class, 'update']);
+        Route::delete('/abouts/{id}', [AboutController::class, 'destroy']);
+
+        //Info
+        Route::put('/info', [InfoController::class, 'update']);
     }
 );

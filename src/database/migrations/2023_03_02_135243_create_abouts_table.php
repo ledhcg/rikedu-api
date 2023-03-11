@@ -12,7 +12,7 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('posts', function (Blueprint $table) {
+        Schema::create('abouts', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->uuid('user_id')->constrained();
             $table->string('title');
@@ -20,7 +20,6 @@ return new class extends Migration {
             $table->string('slug')->unique();
             $table->longText('content');
             $table->text('summary');
-            $table->boolean('published')->default(false);
             $table->timestamp('published_at')->nullable();
             $table->timestamps();
         });
@@ -33,6 +32,6 @@ return new class extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('posts');
+        Schema::dropIfExists('abouts');
     }
 };

@@ -1,0 +1,713 @@
+{
+	"info": {
+		"_postman_id": "64b7ebc6-e602-489a-8203-8af154776900",
+		"name": "BCSD",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26296397"
+	},
+	"item": [
+		{
+			"name": "Post",
+			"item": [
+				{
+					"name": "Posts (All)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "2|5k3sDhZTYJGSpvzFXbhMNDAPzl32NojLj8tymr79",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/posts?per_page={{POST-per_page}}&page={{POST-page}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"posts"
+							],
+							"query": [
+								{
+									"key": "per_page",
+									"value": "{{POST-per_page}}"
+								},
+								{
+									"key": "page",
+									"value": "{{POST-page}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Posts (Group by Category or Tag))",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "1|WN0ZXc02wqUiaBEmLZeBHvbQ1G99c9S5XQnNldDq",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/{{POST-model}}&slug={{POST-model_slug}}/posts",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"{{POST-model}}&slug={{POST-model_slug}}",
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post (Detail)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "2|Z6AJ5L5CQ91Tk37paSRKxW3JLR7LUkJNy1C5R9dF",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/posts/{{POST-post_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"posts",
+								"{{POST-post_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post (Create)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token_user}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "ABC",
+									"type": "text"
+								},
+								{
+									"key": "user_id",
+									"value": "{{POST-user_id}}",
+									"type": "text"
+								},
+								{
+									"key": "slug",
+									"value": "ledhcg-5-7-7-9",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/dinhc/Downloads/12.jpg"
+								},
+								{
+									"key": "content",
+									"value": "ABC",
+									"type": "text"
+								},
+								{
+									"key": "summary",
+									"value": "ABC",
+									"type": "text"
+								},
+								{
+									"key": "category_slug",
+									"value": "{{POST-category_slug}}",
+									"type": "text"
+								},
+								{
+									"key": "tags[0]",
+									"value": "{{POST-tags[0]}}",
+									"type": "text"
+								},
+								{
+									"key": "tags[1]",
+									"value": "{{POST-tags[1]}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/posts",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post (Update)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token_user}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"title\": \"Minus minus harum asperiores voluptas perspiciatis vero sed et 56.78989jknksssdd686\",\r\n\"user_id\": \"17e11ea7-6dd4-4a5f-b578-8bf36f3523a8\",\r\n        \"content\": \"Id asperiores dolores adipisci vel maxime. Eos ut hic voluptatem tenetur earum voluptatem.\\n\\nImpedit beatae ea voluptatem fuga. Blanditiis omnis unde officia rerum omnis accusamus numquam. Fugit nam illo pariatur non.\\n\\nSapiente aut voluptatum voluptatem impedit consequuntur est. Totam ut sint quia. Repellendus at vel temporibus similique sed sint qui. A commodi saepe explicabo aliquid quae porro.\",\r\n        \"summary\": \"Labore omnis veritatis quaerat rerum ipsum quia quo. Error similique quis eos assumenda. Autem repellat non sed odio est qui. Dolores fugit sit fugit. Quibusdam quam perspiciatis aut neque reiciendis soluta.\",\r\n        \"thumbnail\": \"https://via.placeholder.com/640x480.png/0044bb?text=similique\",\r\n        \"slug\": \"praesentium-et-natus-temporibus-qui-placeat-sit-voluptatibus\",\r\n        \"published\": 0,\r\n        \"published_at\": \"2023-02-02 02:35:13\"\r\n        }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/posts/{{POST-post_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"posts",
+								"{{POST-post_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post (Delete)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token_user}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/posts/{{POST-post_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"posts",
+								"{{POST-post_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "1|6AqMYsQajI4gPZRqK80EDmZUSGaE6vgm8MnlVu4M",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/users",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "user1",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "user1@ledinhcuong.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "password_confirmation",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "first_name",
+									"value": "ABC",
+									"type": "text"
+								},
+								{
+									"key": "last_name",
+									"value": "ABC",
+									"type": "text"
+								},
+								{
+									"key": "bio",
+									"value": "Hello",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/dinhc/Downloads/0.jpg"
+								},
+								{
+									"key": "gender",
+									"value": "Male",
+									"type": "text"
+								},
+								{
+									"key": "date_of_birth",
+									"value": "1999-06-24",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "+1-407-207-1428",
+									"type": "text"
+								},
+								{
+									"key": "address",
+									"value": "Moscow",
+									"type": "text"
+								},
+								{
+									"key": "department",
+									"value": "MIREA",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token_user}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/logout",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login (User)",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email_username\": \"admin@bcsdnga.com\",\r\n    \"password\": \"password\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login (Admin)",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email_username\": \"admin@bcsdnga.com\",\r\n    \"password\": \"password\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login (Super admin)",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email_username\": \"superadmin@bcsdnga.com\",\r\n    \"password\": \"password\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Info",
+			"item": [
+				{
+					"name": "Info (Get)",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/info",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"info"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Info (Update)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token_user}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "BAN CÁN SỰ ĐOÀN TẠI LIÊN BANG NGA",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Trang thông tin chính thức của Ban Cán sự Đoàn tại Liên Bang Nga",
+									"type": "text"
+								},
+								{
+									"key": "author",
+									"value": "BAN CÁN SỰ ĐOÀN TẠI LIÊN BANG NGA",
+									"type": "text"
+								},
+								{
+									"key": "keywords",
+									"value": "['vietnam', 'bcsd', 'luu hoc sinh', 'bcsdlbn']",
+									"type": "text"
+								},
+								{
+									"key": "contact[address][vi]",
+									"value": "Tầng 3, số nhà 10, đường Pervaya Tverskai-Yamkai, Mátxcơva",
+									"type": "text"
+								},
+								{
+									"key": "contact[address][ru]",
+									"value": "Москва, Ул. Первая Тверская-Ямская (метро Белорусская), Дом 30, Ком 25, 3 Этаж",
+									"type": "text"
+								},
+								{
+									"key": "contact[phone]",
+									"value": "+7 961 212 3240",
+									"type": "text"
+								},
+								{
+									"key": "contact[email]",
+									"value": "bcsdlbnga@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "contact[social][facebook]",
+									"value": "https://www.facebook.com/bcsdlbn",
+									"type": "text"
+								},
+								{
+									"key": "contact[social][telegram]",
+									"value": "https://t.me/bcsdlbn",
+									"type": "text"
+								},
+								{
+									"key": "contact[social][youtube]",
+									"value": "https://www.youtube.com/bcsd",
+									"type": "text"
+								},
+								{
+									"key": "image_thumbnail",
+									"type": "file",
+									"src": "/C:/Users/dinhc/Downloads/0.jpg"
+								},
+								{
+									"key": "image_cover",
+									"type": "file",
+									"src": "/C:/Users/dinhc/Downloads/0.jpg"
+								},
+								{
+									"key": "_method",
+									"value": "PUT",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/info",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"info"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "About",
+			"item": [
+				{
+					"name": "Abouts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/abouts",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"abouts"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Category",
+			"item": [
+				{
+					"name": "Categories (All)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "2|5k3sDhZTYJGSpvzFXbhMNDAPzl32NojLj8tymr79",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/categories",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"categories"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Tag",
+			"item": [
+				{
+					"name": "Tags (All)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "2|5k3sDhZTYJGSpvzFXbhMNDAPzl32NojLj8tymr79",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/categories",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"categories"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

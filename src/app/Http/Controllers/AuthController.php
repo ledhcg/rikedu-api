@@ -37,9 +37,9 @@ class AuthController extends Controller
     {
         $input = $request->validated();
         $input['password'] = bcrypt($input['password']);
-        $input['image'] = $this->userService->handleImage(
+        $input['image'] = $this->userService->processImage(
             $input['image'],
-            StoragePath::USER_IMAGE
+            StoragePath::USER_IMAGE_AVATAR
         );
 
         $user = User::create($input);
@@ -51,9 +51,7 @@ class AuthController extends Controller
                 ->plainTextToken,
             'token_type' => 'Bearer',
         ];
-
-        $user->storagePathImage = StoragePath::USER_IMAGE;
-        $user->modeQuery = ModeQuery::SINGLE;
+        $user->modeQuery = ModeQuery::MODEL_SINGLE;
 
         return $this->successResponse(
             new UserResource($user),
@@ -75,9 +73,7 @@ class AuthController extends Controller
                     ->plainTextToken,
                 'token_type' => 'Bearer',
             ];
-
-            $user->storagePathImage = StoragePath::USER_IMAGE;
-            $user->modeQuery = ModeQuery::SINGLE;
+            $user->modeQuery = ModeQuery::MODEL_SINGLE;
 
             return $this->successResponse(
                 new UserResource($user),

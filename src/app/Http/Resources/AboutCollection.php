@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class UserCollection extends ResourceCollection
+class AboutCollection extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.
@@ -14,12 +14,8 @@ class UserCollection extends ResourceCollection
      */
     public function toArray($request)
     {
-        $users = $this->collection->map(function ($user) {
-            $user->modeQuery = $this->modeQuery;
-            return $user;
-        });
         return [
-            'users' => UserResource::collection($users),
+            'abouts' => AboutResource::collection($this->collection),
             'meta' => [
                 'total' => $this->total(),
                 'per_page' => $this->perPage(),

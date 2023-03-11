@@ -6,6 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use App\Traits\ApiResponse;
+use Illuminate\Validation\Rule;
 
 class StorePostRequest extends FormRequest
 {
@@ -29,13 +30,15 @@ class StorePostRequest extends FormRequest
     {
         return [
             'title' => 'required|string|max:255',
-            'user_id' => 'required',
-            'slug' => 'required',
-            'summary' => 'required',
+            'user_id' => 'required|uuid',
+            'category_slug' => 'required|alpha_dash',
+            'tags' => 'required|array|min:1',
+            'tags.*' => 'required|string',
+            'slug' => ['required', 'alpha_dash', Rule::unique('posts')],
+            'summary' => 'required|string',
             'content' => 'required|string',
-            'thumbnail' => 'required|url',
-            'published' => 'required|boolean',
-            'published_at' => 'required',
+            /*Thumbnail | min->1200x630, Cover | min->(w or h)1600*/
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:4096',
         ];
     }
 

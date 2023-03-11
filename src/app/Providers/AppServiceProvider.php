@@ -7,24 +7,36 @@ use Illuminate\Support\ServiceProvider;
 class AppServiceProvider extends ServiceProvider
 {
     /**
+     * All of the container bindings that should be registered.
+     *
+     * @var array
+     */
+    public $bindings = [
+        AuthController::class => AuthService::class,
+        UserController::class => UserService::class,
+        PostController::class => PostService::class,
+        InfoController::class => InfoService::class,
+    ];
+
+    /**
+     * All of the container singletons that should be registered.
+     *
+     * @var array
+     */
+    public $singletons = [
+        UserService::class => ImageService::class,
+        PostService::class => ImageService::class,
+        InfoService::class => ImageService::class,
+        AboutService::class => ImageService::class,
+    ];
+    /**
      * Register any application services.
      *
      * @return void
      */
     public function register()
     {
-        $this->app->bind(AuthService::class, function ($app) {
-            return new AuthService();
-        });
-        $this->app->bind(UserService::class, function ($app) {
-            return new UserService();
-        });
-        $this->app->bind(PostService::class, function ($app) {
-            return new PostService();
-        });
-        $this->app->bind(InfoService::class, function ($app) {
-            return new InfoService();
-        });
+        //
     }
 
     /**

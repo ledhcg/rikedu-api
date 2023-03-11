@@ -11,7 +11,6 @@ use App\Http\Resources\UserCollection;
 use App\Http\Resources\UserResource;
 use App\Services\UserService;
 use App\Contracts\ModeQuery;
-use App\Contracts\StoragePath;
 
 class UserController extends Controller
 {
@@ -29,9 +28,11 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $users = User::paginate($request->get('per_page', 15));
-        $users->storagePathImage = StoragePath::USER_IMAGE;
-        $users->modeQuery = ModeQuery::COLLECTION;
+        $perPage = $request->get('per_page', 15);
+
+        $users = User::paginate($perPage);
+
+        $users->modeQuery = ModeQuery::MODEL_COLLECTION;
         return $this->successResponse(
             new UserCollection($users),
             'Users retrieved successfully'

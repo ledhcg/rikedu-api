@@ -16,6 +16,8 @@ use App\Http\Resources\PostCollection;
 use App\Http\Resources\PostResource;
 
 use App\Services\PostService;
+use App\Contracts\ModeQuery;
+use App\Contracts\StoragePath;
 
 class PostController extends Controller
 {
@@ -27,15 +29,41 @@ class PostController extends Controller
     {
         $this->postService = $postService;
     }
-    
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function list(Request $request)
     {
-        $posts = Post::with('user')->paginate($request->get('per_page', 15));
+        $perPage = $request->get('per_page', 15);
+
+        $posts = Post::paginate($perPage);
+
+        return $this->successResponse(
+            new PostCollection($posts),
+            'Posts retrieved successfully'
+        );
+    }
+
+    /**
+     * Display a group listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function listGroup(Request $request, $group, $slug)
+    {
+        $perPage = $request->get('per_page', 15);
+
+        switch ($group) {
+            case ModeQuery::GROUP_BY_CATEGORY:
+                $posts = Post::withCategorySlug($slug)->paginate($perPage);
+                break;
+            case ModeQuery::GROUP_BY_TAG:
+                $posts = Post::withTagSlug($slug)->paginate($perPage);
+                break;
+        }
         return $this->successResponse(
             new PostCollection($posts),
             'Posts retrieved successfully'
@@ -51,8 +79,15 @@ class PostController extends Controller
     public function store(StorePostRequest $request)
     {
         $validated = $request->validated();
+        $validated['image'] = $this->postService->processImage(
+            $validated['image'],
+            StoragePath::POST_IMAGE_THUMBNAIL,
+            StoragePath::POST_IMAGE_COVER
+        );
         $post = new Post($validated);
         $post->save();
+        $post->attachCategory($validated['category_slug']);
+        $post->attachTags($validated['tags']);
 
         return $this->createdResponse(
             new PostResource($post),
@@ -74,16 +109,11 @@ class PostController extends Controller
             return $this->notFoundResponse('Post not found');
         }
 
-        if (!Auth::user()->can('view', $post)) {
-            return $this->unauthorizedResponse('You do not own this post.');
-        }
-
         return $this->successResponse(
             new PostResource($post),
             'Post retrieved successfully'
         );
     }
-
 
     /**
      * Update the specified resource in storage.

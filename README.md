@@ -12,7 +12,13 @@
     ```sh
     docker-compose --env-file .env.docker up --build
     ```
-4. You can see:
+4. Running Seeders
+
+    ```sh
+    docker-compose exec api php artisan migrate:fresh --seed
+    ```
+
+5. You can use:
 
 -   [API] on `127.0.0.1:8000` or `localhost:8000`
 
@@ -81,6 +87,6 @@ PMA_PASSWORD=secret
 
 ## Documentation
 
-```
-localhost:8000/api/v1/docs
-```
+-   Open the Postman app and select the collection "BCSD".
+-   Click on the "..." button next to the collection name and select "View Documentation".
+-   The documentation will be displayed in a new tab in the Postman app.

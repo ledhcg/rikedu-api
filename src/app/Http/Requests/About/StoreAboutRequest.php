@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Requests\Info;
+namespace App\Http\Requests\About;
 
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use App\Traits\ApiResponse;
 
-class UpdateInfoRequest extends FormRequest
+class StoreAboutRequest extends FormRequest
 {
     use ApiResponse;
     /**
@@ -29,17 +29,12 @@ class UpdateInfoRequest extends FormRequest
     {
         return [
             'title' => 'required|string|max:255',
-            'description' => 'required|string',
-            'author' => 'required|string',
-            'keywords' => 'required|string',
-            //Contact
-            'contact.address.*' => 'required|string',
-            'contact.phone' => 'required|string',
-            'contact.email' => 'required|string',
-            'contact.social.*' => 'required|url',
-            //Image
-            'image_thumbnail' => 'required|image',
-            'image_cover' => 'required|image',
+            'user_id' => 'required',
+            'slug' => 'required',
+            'summary' => 'required',
+            'content' => 'required|string',
+            'image' => 'required',
+            'published_at' => 'required',
         ];
     }
 

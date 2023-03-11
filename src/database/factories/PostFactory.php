@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 use App\Models\User;
-
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,12 +17,14 @@ class PostFactory extends Factory
      */
     public function definition()
     {
+        $title = $this->faker->sentence;
+        $slug = Str::slug($title);
         return [
             'user_id' => User::factory(),
-            'title' => $this->faker->sentence,
-            'thumbnail' => $this->faker->imageUrl(640, 480),
-            'slug' => $this->faker->slug,
-            'content' => $this->faker->paragraphs(3, true),
+            'title' => $title,
+            'slug' => $slug,
+            'image' => 'https://picsum.photos/1200/600.webp',
+            'content' => $this->faker->paragraphs(60, true),
             'summary' => $this->faker->paragraph,
             'published' => $this->faker->boolean,
             'published_at' => $this->faker->dateTimeThisMonth(),

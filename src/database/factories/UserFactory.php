@@ -25,8 +25,12 @@ class UserFactory extends Factory
             'first_name' => $this->faker->firstName,
             'last_name' => $this->faker->lastName,
             'bio' => $this->faker->sentence(),
-            'image' => $this->faker->imageUrl(640, 480),
-            'gender' => $this->faker->randomElement(['Male', 'Female', 'Other']),
+            'image' => 'https://picsum.photos/seed/avatar/600/600.webp',
+            'gender' => $this->faker->randomElement([
+                'Male',
+                'Female',
+                'Other',
+            ]),
             'date_of_birth' => $this->faker->date(),
             'phone' => $this->faker->phoneNumber,
             'address' => $this->faker->address,
@@ -45,9 +49,21 @@ class UserFactory extends Factory
      */
     public function unverified()
     {
-        return $this->state(fn (array $attributes) => [
-            'email_verified_at' => null,
-        ]);
+        return $this->state(
+            fn(array $attributes) => [
+                'email_verified_at' => null,
+            ]
+        );
+    }
+
+    /**
+     * Indicate that the user is an user.
+     *
+     * @return Factory
+     */
+    public function user(): UserFactory
+    {
+        return $this->assignRole('user');
     }
 
     /**
@@ -79,15 +95,15 @@ class UserFactory extends Factory
         return $this->afterCreating(fn(User $user) => $user->syncRoles($roles));
     }
 
-    /**
-     * Configure the model factory.
-     *
-     * @return $this
-     */
-    public function configure()
-    {
-        return $this->afterMaking(function (User $user) {
-            return $user->assignRole('user');
-        });
-    }
+    // /**
+    //  * Configure the model factory.
+    //  *
+    //  * @return $this
+    //  */
+    // public function configure()
+    // {
+    //     return $this->afterMaking(function (User $user) {
+    //         return $user->assignRole('user');
+    //     });
+    // }
 }
