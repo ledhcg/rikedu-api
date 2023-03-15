@@ -87,6 +87,20 @@ Route::group(
         Route::put('/abouts/{id}', [AboutController::class, 'update']);
         Route::delete('/abouts/{id}', [AboutController::class, 'destroy']);
 
+        //Category
+        Route::post('/categories', [
+            CategoryAndTagController::class,
+            'storeCategory',
+        ]);
+        Route::put('/categories/{id}', [
+            CategoryAndTagController::class,
+            'updateCategory',
+        ]);
+        Route::delete('/categories/{id}', [
+            CategoryAndTagController::class,
+            'destroyCategory',
+        ]);
+
         //Info
         Route::put('/info', [InfoController::class, 'update']);
     }
