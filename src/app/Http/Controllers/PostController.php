@@ -149,6 +149,12 @@ class PostController extends Controller
         }
         $post->fill($validated);
         $post->save();
+        if (isset($validated['category_slug'])) {
+            $post->syncCategory($validated['category_slug']);
+        }
+        if (isset($validated['tags'])) {
+            $post->syncTags($validated['tags']);
+        }
 
         return $this->successResponse(
             new PostResource($post),
@@ -172,7 +178,7 @@ class PostController extends Controller
 
         if (Auth::user()->cannot('delete', $post)) {
             return $this->unauthorizedResponse(
-                'User is not authorized to delete the post'
+                'User is not authorized to delete the post.'
             );
         }
 
