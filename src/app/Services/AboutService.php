@@ -11,4 +11,16 @@ class AboutService
     {
         $this->imageService = $imageService;
     }
+
+    function processImage($imageFile, $pathThumbnail, $pathCover)
+    {
+        $filename = $this->imageService->setFileName();
+        return $this->imageService->storeThumbnail(
+            $imageFile,
+            $filename,
+            $pathThumbnail
+        ) && $this->imageService->storeCover($imageFile, $filename, $pathCover)
+            ? $filename
+            : $this->errorResponse('Failed to save file', 422);
+    }
 }

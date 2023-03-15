@@ -2,13 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+
 use App\Http\Requests\Category\StoreCategoryRequest;
 use App\Http\Requests\Category\UpdateCategoryRequest;
+
 use App\Http\Resources\CategoryResource;
 use App\Http\Resources\TagResource;
+
+use App\Models\Category;
 use Spatie\Tags\Tag;
+
 use App\Traits\ApiResponse;
 
 class CategoryAndTagController extends Controller
@@ -45,44 +50,95 @@ class CategoryAndTagController extends Controller
         );
     }
 
-    public function storeCategory(StoreCategoryRequest $request)
-    {
-        //
+    public function storeCategory(
+        StoreCategoryRequest $request,
+        Category $category
+    ) {
+        if (Auth::user()->cannot('create', $category)) {
+            return $this->unauthorizedResponse(
+                'User is not authorized to create the category'
+            );
+        }
+
+        $validated = $request->validated();
+        $category = new Category($validated);
+        $category->save();
+
+        return $this->createdResponse(
+            new CategoryResource($category),
+            'Category created successfully'
+        );
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Category  $category
+     * @param  $id
      * @return \Illuminate\Http\Response
      */
-    public function showCategory(Category $category)
+    public function showCategory($id)
     {
-        //
+        $category = Category::find($id);
+
+        if (!$category) {
+            return $this->notFoundResponse('Category not found');
+        }
+
+        return $this->successResponse(
+            new CategoryResource($category),
+            'Category retrieved successfully'
+        );
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \App\Http\Requests\UpdateCategoryRequest  $request
-     * @param  \App\Models\Category  $category
+     * @param  $id
      * @return \Illuminate\Http\Response
      */
-    public function updateCategory(
-        UpdateCategoryRequest $request,
-        Category $category
-    ) {
-        //
+    public function updateCategory(UpdateCategoryRequest $request, $id)
+    {
+        $category = Category::find($id);
+        if (!$category) {
+            return $this->notFoundResponse('Category not found');
+        }
+        if (Auth::user()->cannot('update', $category)) {
+            return $this->unauthorizedResponse(
+                'User is not authorized to update the category'
+            );
+        }
+        $validated = $request->validated();
+        $category->fill($validated);
+        $category->save();
+
+        return $this->successResponse(
+            new CategoryResource($category),
+            'Category updated successfully'
+        );
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Category  $category
+     * @param  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroyCategory(Category $category)
+    public function destroyCategory($id)
     {
-        //
+        $category = Category::find($id);
+
+        if (!$category) {
+            return $this->notFoundResponse('Category not found');
+        }
+
+        if (Auth::user()->cannot('delete', $category)) {
+            return $this->unauthorizedResponse(
+                'User is not authorized to delete the category.'
+            );
+        }
+
+        $category->delete();
+        return $this->deletedResponse('Category deleted successfully');
     }
 }

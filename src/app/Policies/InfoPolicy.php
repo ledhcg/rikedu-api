@@ -19,6 +19,6 @@ class InfoPolicy
      */
     public function update(User $user, Info $info)
     {
-        //
+        return $user->hasRole('super admin');
     }
 }

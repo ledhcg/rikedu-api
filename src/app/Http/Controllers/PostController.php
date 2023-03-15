@@ -76,8 +76,14 @@ class PostController extends Controller
      * @param  \App\Http\Requests\StorePostRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StorePostRequest $request)
+    public function store(StorePostRequest $request, Post $post)
     {
+        if (Auth::user()->cannot('create', $post)) {
+            return $this->unauthorizedResponse(
+                'User is not authorized to create the post'
+            );
+        }
+
         $validated = $request->validated();
         $validated['image'] = $this->postService->processImage(
             $validated['image'],
@@ -128,14 +134,27 @@ class PostController extends Controller
         if (!$post) {
             return $this->notFoundResponse('Post not found');
         }
-
-        if (!Auth::user()->can('update', $post)) {
-            return $this->unauthorizedResponse('You do not own this post.');
+        if (Auth::user()->cannot('update', $post)) {
+            return $this->unauthorizedResponse(
+                'User is not authorized to update the post'
+            );
         }
-
         $validated = $request->validated();
+        if (isset($validated['image'])) {
+            $validated['image'] = $this->postService->processImage(
+                $validated['image'],
+                StoragePath::POST_IMAGE_THUMBNAIL,
+                StoragePath::POST_IMAGE_COVER
+            );
+        }
         $post->fill($validated);
         $post->save();
+        if (isset($validated['category_slug'])) {
+            $post->syncCategory($validated['category_slug']);
+        }
+        if (isset($validated['tags'])) {
+            $post->syncTags($validated['tags']);
+        }
 
         return $this->successResponse(
             new PostResource($post),
@@ -152,9 +171,17 @@ class PostController extends Controller
     public function destroy($id)
     {
         $post = Post::find($id);
+
         if (!$post) {
             return $this->notFoundResponse('Post not found');
         }
+
+        if (Auth::user()->cannot('delete', $post)) {
+            return $this->unauthorizedResponse(
+                'User is not authorized to delete the post.'
+            );
+        }
+
         $post->delete();
         return $this->deletedResponse('Post deleted successfully');
     }

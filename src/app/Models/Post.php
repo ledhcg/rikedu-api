@@ -45,7 +45,7 @@ class Post extends Model
         $this->category()->attach($category);
     }
 
-    public function syncCategories($categorySlug)
+    public function syncCategory($categorySlug)
     {
         $category = Category::where('slug', $categorySlug)->firstOrFail();
         $this->category()->sync($category);
