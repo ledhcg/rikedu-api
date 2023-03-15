@@ -10,6 +10,7 @@ use App\Models\Post;
 class Category extends Model
 {
     use HasFactory, HasUuid;
+    protected $fillable = ['title', 'slug', 'description'];
 
     public function posts()
     {
