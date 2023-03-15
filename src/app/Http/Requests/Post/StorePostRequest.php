@@ -5,8 +5,9 @@ namespace App\Http\Requests\Post;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
-use App\Traits\ApiResponse;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Str;
+use App\Traits\ApiResponse;
 
 class StorePostRequest extends FormRequest
 {
@@ -28,13 +29,28 @@ class StorePostRequest extends FormRequest
      */
     public function rules()
     {
+        $titleSlug = Str::slug($this->input('title'));
+
         return [
             'title' => 'required|string|max:255',
             'user_id' => 'required|uuid',
-            'category_slug' => 'required|alpha_dash',
+            'category_slug' => 'required|alpha_dash|exists:categories,slug',
             'tags' => 'required|array|min:1',
             'tags.*' => 'required|string',
-            'slug' => ['required', 'alpha_dash', Rule::unique('posts')],
+            'slug' => [
+                'required',
+                'alpha_dash',
+                Rule::unique('posts'),
+                function ($attribute, $value, $fail) use ($titleSlug) {
+                    if ($value !== $titleSlug) {
+                        $fail(
+                            'The ' .
+                                $attribute .
+                                ' must be equal to the slugified title.'
+                        );
+                    }
+                },
+            ],
             'summary' => 'required|string',
             'content' => 'required|string',
             /*Thumbnail | min->1200x630, Cover | min->(w or h)1600*/
