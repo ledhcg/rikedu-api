@@ -46,7 +46,7 @@ class InfoController extends Controller
             return $this->notFoundResponse('Info not found');
         }
 
-        if (!Auth::user()->can('anything', $info)) {
+        if (Auth::user()->cannot('update', $info)) {
             return $this->unauthorizedResponse('You do not own this content.');
         }
 
