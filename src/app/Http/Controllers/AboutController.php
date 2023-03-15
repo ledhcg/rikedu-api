@@ -13,6 +13,8 @@ use App\Http\Resources\AboutCollection;
 use App\Http\Resources\AboutResource;
 
 use App\Services\AboutService;
+use App\Contracts\ModeQuery;
+use App\Contracts\StoragePath;
 
 class AboutController extends Controller
 {
@@ -45,9 +47,20 @@ class AboutController extends Controller
      * @param  \App\Http\Requests\About\StoreAboutRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreAboutRequest $request)
+    public function store(StoreAboutRequest $request, About $about)
     {
+        if (Auth::user()->cannot('create', $about)) {
+            return $this->unauthorizedResponse(
+                'User is not authorized to create the content'
+            );
+        }
+
         $validated = $request->validated();
+        $validated['image'] = $this->aboutService->processImage(
+            $validated['image'],
+            StoragePath::ABOUT_IMAGE_THUMBNAIL,
+            StoragePath::ABOUT_IMAGE_COVER
+        );
         $about = new About($validated);
         $about->save();
 
@@ -71,10 +84,6 @@ class AboutController extends Controller
             return $this->notFoundResponse('About not found');
         }
 
-        if (!Auth::user()->can('view', $about)) {
-            return $this->unauthorizedResponse('You do not own this about.');
-        }
-
         return $this->successResponse(
             new AboutResource($about),
             'About retrieved successfully'
@@ -95,11 +104,20 @@ class AboutController extends Controller
             return $this->notFoundResponse('About not found');
         }
 
-        if (!Auth::user()->can('update', $about)) {
-            return $this->unauthorizedResponse('You do not own this about.');
+        if (Auth::user()->cannot('update', $about)) {
+            return $this->unauthorizedResponse(
+                'User is not authorized to update the content'
+            );
         }
 
         $validated = $request->validated();
+        if (isset($validated['image'])) {
+            $validated['image'] = $this->aboutService->processImage(
+                $validated['image'],
+                StoragePath::ABOUT_IMAGE_THUMBNAIL,
+                StoragePath::ABOUT_IMAGE_COVER
+            );
+        }
         $about->fill($validated);
         $about->save();
 
@@ -118,9 +136,16 @@ class AboutController extends Controller
     public function destroy($id)
     {
         $about = About::find($id);
+
         if (!$about) {
             return $this->notFoundResponse('About not found');
         }
+        if (Auth::user()->cannot('delete', $about)) {
+            return $this->unauthorizedResponse(
+                'User is not authorized to delete the content.'
+            );
+        }
+
         $about->delete();
         return $this->deletedResponse('About deleted successfully');
     }
