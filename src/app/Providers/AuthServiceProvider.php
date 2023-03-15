@@ -10,6 +10,8 @@ use App\Models\Info;
 use App\Policies\InfoPolicy;
 use App\Models\Category;
 use App\Policies\CategoryPolicy;
+use App\Models\About;
+use App\Policies\AboutPolicy;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -20,6 +22,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         Post::class => PostPolicy::class,
+        About::class => AboutPolicy::class,
         Info::class => InfoPolicy::class,
         Category::class => CategoryPolicy::class,
     ];
