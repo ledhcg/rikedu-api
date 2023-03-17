@@ -42,13 +42,18 @@
     ```sh
     php artisan key:generate
     ```
-6. Running Seeders
+6. Link storage
+
+    ```sh
+    php artisan storage:link
+    ```
+7. Running Seeders
 - Active XAMPP Apache and MySQL
 
     ```sh
     php artisan migrate:fresh --seed
     ```
-7. You can use:
+8. You can use:
 
     ```sh
     php artisan serve
