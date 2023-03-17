@@ -11,7 +11,7 @@ trait HasCustomModel
         $image = $this->attributes['image'];
         return filter_var($image, FILTER_VALIDATE_URL)
             ? $image
-            : asset(Storage::disk('public')->url($pathSource . $image));
+            : asset(Storage::url($pathSource . $image));
     }
 
     public function getFullNameAttribute()
