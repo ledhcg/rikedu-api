@@ -10,13 +10,14 @@ use Illuminate\Support\Facades\Storage;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use App\Traits\HasUuid;
+use App\Traits\HasCustomModel;
 
 use App\Models\Post;
 use App\Contracts\StoragePath;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, HasUuid, HasRoles;
+    use HasApiTokens, HasFactory, Notifiable, HasUuid, HasRoles, HasCustomModel;
 
     /**
      * The attributes that are mass assignable.
@@ -45,20 +46,16 @@ class User extends Authenticatable
      */
     protected $hidden = ['password', 'remember_token'];
 
+    
+    /* -------------------------- *
+     * ATTRIBUTE
+     * -------------------------- */
+    
     public function getAvatarUrlAttribute()
     {
         //Check if $image is a URL or not, and then return data accordingly
         $image = $this->attributes['image'];
-        return filter_var($image, FILTER_VALIDATE_URL)
-            ? $image
-            : asset(Storage::url(StoragePath::USER_IMAGE_AVATAR . $image));
-    }
-
-    public function getFullNameAttribute()
-    {
-        return $this->attributes['first_name'] .
-            ' ' .
-            $this->attributes['last_name'];
+        return $this->makeImageUrl($image, StoragePath::USER_IMAGE_AVATAR);
     }
 
     /**

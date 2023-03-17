@@ -11,11 +11,13 @@ use App\Models\PostHasCategory;
 use Spatie\Tags\HasTags;
 
 use App\Traits\HasUuid;
+use App\Traits\HasCustomModel;
+
 use App\Contracts\StoragePath;
 
 class Post extends Model
 {
-    use HasFactory, HasUuid, HasTags;
+    use HasFactory, HasUuid, HasTags, HasCustomModel;
 
     protected $fillable = [
         'user_id',
@@ -56,20 +58,14 @@ class Post extends Model
      * -------------------------- */
     public function getImageCoverUrlAttribute()
     {
-        //Check if $image is a URL or not, and then return data accordingly
         $image = $this->attributes['image'];
-        return filter_var($image, FILTER_VALIDATE_URL)
-            ? $image
-            : asset(Storage::url(StoragePath::POST_IMAGE_COVER . $image));
+        return $this->makeImageUrl($image, StoragePath::POST_IMAGE_COVER);
     }
 
     public function getImageThumbnailUrlAttribute()
     {
-        //Check if $image is a URL or not, and then return data accordingly
         $image = $this->attributes['image'];
-        return filter_var($image, FILTER_VALIDATE_URL)
-            ? $image
-            : asset(Storage::url(StoragePath::POST_IMAGE_THUMBNAIL . $image));
+        return $this->makeImageUrl($image, StoragePath::POST_IMAGE_THUMBNAIL);
     }
 
     /* -------------------------- *

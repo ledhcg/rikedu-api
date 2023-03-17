@@ -6,10 +6,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use App\Contracts\StoragePath;
+use App\Traits\HasCustomModel;
+
 
 class Info extends Model
 {
-    use HasFactory;
+    use HasFactory, HasCustomModel;
 
     protected $casts = [
         'keywords' => 'array',
@@ -36,19 +38,13 @@ class Info extends Model
      * -------------------------- */
     public function getImageCoverUrlAttribute()
     {
-        //Check if $image is a URL or not, and then return data accordingly
-        $image = json_decode($this->attributes['image'])->cover;
-        return filter_var((string) $image, FILTER_VALIDATE_URL)
-            ? $image
-            : asset(Storage::url(StoragePath::INFO_IMAGE_COVER . $image));
+        $image = $this->attributes['image'];
+        return $this->makeImageUrl($image, StoragePath::INFO_IMAGE_COVER);
     }
 
     public function getImageThumbnailUrlAttribute()
     {
-        //Check if $image is a URL or not, and then return data accordingly
-        $image = json_decode($this->attributes['image'])->thumbnail;
-        return filter_var($image, FILTER_VALIDATE_URL)
-            ? $image
-            : asset(Storage::url(StoragePath::INFO_IMAGE_THUMBNAIL . $image));
+        $image = $this->attributes['image'];
+        return $this->makeImageUrl($image, StoragePath::INFO_IMAGE_THUMBNAIL);
     }
 }
