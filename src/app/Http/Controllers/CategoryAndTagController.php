@@ -14,12 +14,8 @@ use App\Http\Resources\TagResource;
 use App\Models\Category;
 use Spatie\Tags\Tag;
 
-use App\Traits\ApiResponse;
-
 class CategoryAndTagController extends Controller
 {
-    use ApiResponse;
-
     /**
      * Display a category listing  of the resource.
      *

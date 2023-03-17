@@ -1,11 +1,11 @@
 <?php
 namespace App\Services;
-use App\Traits\ApiResponse;
+use App\Traits\HasResponse;
 use App\Services\ImageService;
 
 class PostService
 {
-    use ApiResponse;
+    use HasResponse;
     protected $imageService;
     public function __construct(ImageService $imageService)
     {

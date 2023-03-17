@@ -7,11 +7,11 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
-use App\Traits\ApiResponse;
+use App\Traits\HasResponse;
 
 class StoreAboutRequest extends FormRequest
 {
-    use ApiResponse;
+    use HasResponse;
     /**
      * Determine if the user is authorized to make this request.
      *

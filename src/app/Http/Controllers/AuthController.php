@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
-use App\Traits\ApiResponse;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Http\Resources\UserResource;
@@ -17,7 +16,6 @@ use App\Contracts\StoragePath;
 
 class AuthController extends Controller
 {
-    use ApiResponse;
 
     private $authService, $userService;
 

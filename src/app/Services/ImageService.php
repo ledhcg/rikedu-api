@@ -46,7 +46,7 @@ class ImageService
 
         switch ($type) {
             case self::TYPE_PROFILE:
-                return $this->resizeImage(
+                return $this->fitImage(
                     $image,
                     $side_square,
                     $side_square,

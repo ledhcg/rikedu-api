@@ -5,11 +5,11 @@ namespace App\Http\Requests\Info;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
-use App\Traits\ApiResponse;
+use App\Traits\HasResponse;
 
 class UpdateInfoRequest extends FormRequest
 {
-    use ApiResponse;
+    use HasResponse;
     /**
      * Determine if the user is authorized to make this request.
      *

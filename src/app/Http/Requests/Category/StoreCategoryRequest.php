@@ -7,11 +7,11 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Str;
-use App\Traits\ApiResponse;
+use App\Traits\HasResponse;
 
 class StoreCategoryRequest extends FormRequest
 {
-    use ApiResponse;
+    use HasResponse;
     /**
      * Determine if the user is authorized to make this request.
      *

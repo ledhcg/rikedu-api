@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
-use App\Traits\ApiResponse;
-
 use App\Models\Post;
 
 use App\Http\Requests\Post\StorePostRequest;
@@ -21,8 +19,6 @@ use App\Contracts\StoragePath;
 
 class PostController extends Controller
 {
-    use ApiResponse;
-
     private $postService;
 
     public function __construct(PostService $postService)
