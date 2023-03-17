@@ -36,11 +36,10 @@ jobs:
                   cd src
                   chmod -R 777 storage bootstrap/cache
             - name: 📂 Sync files
-              uses: SamKirkland/FTP-Deploy-Action@4.3.3
+              uses: SamKirkland/FTP-Deploy-Action@4.3.4
               with:
                   server: ${{ secrets.FTP_SERVER }}
                   username: ${{ secrets.FTP_USERNAME }}
                   local-dir: ./src/
-                  server-dir: ./domains/new_version/public_html/
+                  server-dir: ./update/
                   password: ${{ secrets.FTP_PASSWORD }}
-                  dangerous-clean-slate: true
