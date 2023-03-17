@@ -1,4 +1,4 @@
-## How to Install and Run the project
+## How to Install and Run the project on Docker
 
 1. Clone the repo
     ```sh
@@ -20,6 +20,39 @@
 
 5. You can use:
 
+-   [API] on `127.0.0.1:8000` or `localhost:8000`
+
+## How to Install and Run the project on local
+
+1. Clone the repo
+    ```sh
+    git clone https://github.com/bcsdlbnga/website-backend.git
+    ```
+2. Go to folder
+    ```sh
+    cd website-backend/src
+    ```
+3. Copy ".env.example" to ".env"
+4. Install package
+    ```sh
+    composer install
+    ```
+5. Generate key
+
+    ```sh
+    php artisan key:generate
+    ```
+6. Running Seeders
+- Active XAMPP Apache and MySQL
+
+    ```sh
+    php artisan migrate:fresh --seed
+    ```
+7. You can use:
+
+    ```sh
+    php artisan serve
+    ```
 -   [API] on `127.0.0.1:8000` or `localhost:8000`
 
 ## How to use Prettier
