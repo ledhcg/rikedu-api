@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
-use App\Traits\ApiResponse;
 use App\Models\Info;
 use App\Http\Requests\Info\UpdateInfoRequest;
 use App\Http\Resources\InfoResource;
@@ -11,7 +10,6 @@ use App\Contracts\StoragePath;
 
 class InfoController extends Controller
 {
-    use ApiResponse;
     private $infoService;
 
     public function __construct(InfoService $infoService)

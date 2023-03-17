@@ -3,11 +3,11 @@
 namespace App\Http\Middleware;
 
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
-use App\Traits\ApiResponse;
+use App\Traits\HasResponse;
 
 class Authenticate extends Middleware
 {
-    use ApiResponse;
+    use HasResponse;
     /**
      * Get the path the user should be redirected to when they are not authenticated.
      *

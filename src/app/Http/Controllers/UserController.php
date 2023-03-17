@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Traits\ApiResponse;
 use App\Models\User;
 use App\Http\Requests\User\StoreUserRequest;
 use App\Http\Requests\User\UpdateUserRequest;
@@ -14,7 +13,6 @@ use App\Contracts\ModeQuery;
 
 class UserController extends Controller
 {
-    use ApiResponse;
     private $userService;
 
     public function __construct(UserService $userService)

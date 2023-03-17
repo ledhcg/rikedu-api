@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\About\StoreAboutRequest;
 use App\Http\Requests\About\UpdateAboutRequest;
 use App\Models\About;
-use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -18,8 +17,6 @@ use App\Contracts\StoragePath;
 
 class AboutController extends Controller
 {
-    use ApiResponse;
-
     private $aboutService;
 
     public function __construct(AboutService $aboutService)

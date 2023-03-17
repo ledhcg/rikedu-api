@@ -37,7 +37,12 @@ return [
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
-            'url' => env('APP_URL') . '/storage',
+            /* 
+            | Add FILESYSTEM_URL in file .env when deploy on shared hosting
+            | On shared hosting, url has format: 'domain.com/public/storage'
+            */
+            // 'url' => env('APP_URL') . '/storage',
+            'url' => env('FILESYSTEM_URL', '') . '/storage',
             'visibility' => 'public',
             'throw' => false,
         ],

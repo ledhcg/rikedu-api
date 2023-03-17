@@ -4,12 +4,12 @@ namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
-use App\Traits\ApiResponse;
+use App\Traits\HasResponse;
 use Illuminate\Auth\AuthenticationException;
 
 class Handler extends ExceptionHandler
 {
-    use ApiResponse;
+    use HasResponse;
 
     /**
      * A list of exception types with their corresponding custom log levels.
