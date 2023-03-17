@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "64b7ebc6-e602-489a-8203-8af154776900",
-		"name": "BCSD",
+		"name": "BACKEND",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "26296397"
 	},
@@ -122,7 +122,7 @@
 							"formdata": [
 								{
 									"key": "title",
-									"value": "ABC",
+									"value": "Hom-a",
 									"type": "text"
 								},
 								{
@@ -132,13 +132,13 @@
 								},
 								{
 									"key": "slug",
-									"value": "ledhcg-5-7-7-9",
+									"value": "hom-a",
 									"type": "text"
 								},
 								{
 									"key": "image",
 									"type": "file",
-									"src": "/C:/Users/dinhc/Downloads/12.jpg"
+									"src": "/C:/Users/dinhc/Downloads/taifree1431-tra-tach-tra-xanh.png"
 								},
 								{
 									"key": "content",
@@ -192,16 +192,67 @@
 								}
 							]
 						},
-						"method": "PUT",
+						"method": "POST",
 						"header": [],
 						"body": {
-							"mode": "raw",
-							"raw": "{\"title\": \"Minus minus harum asperiores voluptas perspiciatis vero sed et 56.78989jknksssdd686\",\r\n\"user_id\": \"17e11ea7-6dd4-4a5f-b578-8bf36f3523a8\",\r\n        \"content\": \"Id asperiores dolores adipisci vel maxime. Eos ut hic voluptatem tenetur earum voluptatem.\\n\\nImpedit beatae ea voluptatem fuga. Blanditiis omnis unde officia rerum omnis accusamus numquam. Fugit nam illo pariatur non.\\n\\nSapiente aut voluptatum voluptatem impedit consequuntur est. Totam ut sint quia. Repellendus at vel temporibus similique sed sint qui. A commodi saepe explicabo aliquid quae porro.\",\r\n        \"summary\": \"Labore omnis veritatis quaerat rerum ipsum quia quo. Error similique quis eos assumenda. Autem repellat non sed odio est qui. Dolores fugit sit fugit. Quibusdam quam perspiciatis aut neque reiciendis soluta.\",\r\n        \"thumbnail\": \"https://via.placeholder.com/640x480.png/0044bb?text=similique\",\r\n        \"slug\": \"praesentium-et-natus-temporibus-qui-placeat-sit-voluptatibus\",\r\n        \"published\": 0,\r\n        \"published_at\": \"2023-02-02 02:35:13\"\r\n        }",
-							"options": {
-								"raw": {
-									"language": "json"
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "Hom nay an gi 4",
+									"type": "text"
+								},
+								{
+									"key": "slug",
+									"value": "hom-nay-an-gi-4",
+									"type": "text"
+								},
+								{
+									"key": "content",
+									"value": "ABCa777",
+									"type": "text"
+								},
+								{
+									"key": "summary",
+									"value": "ABC",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/dinhc/Downloads/taifree1431-tra-tach-tra-xanh.png"
+								},
+								{
+									"key": "category_slug",
+									"value": "{{POST-category_slug}}",
+									"type": "text"
+								},
+								{
+									"key": "tags[0]",
+									"value": "{{POST-tags[0]}}",
+									"type": "text"
+								},
+								{
+									"key": "tags[1]",
+									"value": "{{POST-tags[1]}}",
+									"type": "text"
+								},
+								{
+									"key": "published",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "published_at",
+									"value": "2023-03-15 15:30:00",
+									"type": "text"
+								},
+								{
+									"key": "_method",
+									"value": "PUT",
+									"type": "text"
 								}
-							}
+							]
 						},
 						"url": {
 							"raw": "{{base_url}}/posts/{{POST-post_id}}",
@@ -417,7 +468,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email_username\": \"admin@bcsdnga.com\",\r\n    \"password\": \"password\"\r\n}",
+							"raw": "{\r\n    \"email_username\": \"user@bcsdnga.com\",\r\n    \"password\": \"password\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -595,12 +646,12 @@
 								{
 									"key": "image_thumbnail",
 									"type": "file",
-									"src": "/C:/Users/dinhc/Downloads/0.jpg"
+									"src": "/C:/Users/dinhc/Downloads/taifree1431-tra-tach-tra-xanh.png"
 								},
 								{
 									"key": "image_cover",
 									"type": "file",
-									"src": "/C:/Users/dinhc/Downloads/0.jpg"
+									"src": "/C:/Users/dinhc/Downloads/taifree1431-tra-tach-tra-xanh.png"
 								},
 								{
 									"key": "_method",
@@ -626,6 +677,164 @@
 		{
 			"name": "About",
 			"item": [
+				{
+					"name": "About (Create)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token_user}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "Hom-a",
+									"type": "text"
+								},
+								{
+									"key": "user_id",
+									"value": "{{ABOUT-user_id}}",
+									"type": "text"
+								},
+								{
+									"key": "slug",
+									"value": "hom-a",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/dinhc/Downloads/taifree1431-tra-tach-tra-xanh.png"
+								},
+								{
+									"key": "content",
+									"value": "ABC",
+									"type": "text"
+								},
+								{
+									"key": "summary",
+									"value": "ABC",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/abouts",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"abouts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "About (Update)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token_user}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "Hom-a",
+									"type": "text"
+								},
+								{
+									"key": "slug",
+									"value": "hom-a",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/dinhc/Downloads/taifree1431-tra-tach-tra-xanh.png"
+								},
+								{
+									"key": "content",
+									"value": "ABC5",
+									"type": "text"
+								},
+								{
+									"key": "summary",
+									"value": "ABC",
+									"type": "text"
+								},
+								{
+									"key": "published_at",
+									"value": "2023-03-15 15:30:00",
+									"type": "text"
+								},
+								{
+									"key": "_method",
+									"value": "PUT",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/abouts/{{ABOUT-about_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"abouts",
+								"{{ABOUT-about_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "About (Delete)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token_user}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/abouts/{{ABOUT-about_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"abouts",
+								"{{ABOUT-about_id}}"
+							]
+						}
+					},
+					"response": []
+				},
 				{
 					"name": "Abouts",
 					"request": {
@@ -670,6 +879,134 @@
 							],
 							"path": [
 								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Categories (Create)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token_user}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "Le Dinh Cuong 2",
+									"type": "text"
+								},
+								{
+									"key": "slug",
+									"value": "le-dinh-cuong-2",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Hello",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/categories",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Categories (Update)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token_user}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "Le Dinh Cuong 89",
+									"type": "text"
+								},
+								{
+									"key": "slug",
+									"value": "le-dinh-cuong-89",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Hello 79",
+									"type": "text"
+								},
+								{
+									"key": "_method",
+									"value": "PUT",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/categories/{{CATEGORY-category_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"categories",
+								"{{CATEGORY-category_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Categories (Delete)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token_user}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/categories/{{CATEGORY-category_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"categories",
+								"{{CATEGORY-category_id}}"
 							]
 						}
 					},
