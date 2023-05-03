@@ -15,6 +15,75 @@ class PostResource extends JsonResource
     public function toArray($request)
     {
         return [
+            "meta_tags" => [
+                [
+                    "charset" => "utf-8",
+                ],
+                [
+                    "content" => "width=device-width, initial-scale=1, shrink-to-fit=no",
+                    "name" => "viewport",
+                ],
+                [
+                    "content" => $this->summary,
+                    "name" => "description",
+                ],
+                [
+                    "content" => $this->tags->pluck('name'),
+                    "name" => "keywords",
+                ],
+                [
+                    "content" => env('APP_NAME', 'BCSDNGA'),
+                    "name" => "author",
+                ],
+                [
+                    "content" => $this->title,
+                    "itemprop" => "name",
+                ],
+                [
+                    "content" => $this->summary,
+                    "itemprop" => "description",
+                ],
+                [
+                    "content" => $this->image_thumbnail_url,
+                    "itemprop" => "image",
+                ],
+                [
+                    "content" => "summary_large_image",
+                    "name" => "twitter:card",
+                ],
+                [
+                    "content" => $this->title,
+                    "name" => "twitter:title",
+                ],
+                [
+                    "content" => $this->summary,
+                    "name" => "twitter:description",
+                ],
+                [
+                    "content" => $this->image_thumbnail_url,
+                    "name" => "twitter:image",
+                ],
+                [
+                    "content" => "article",
+                    "property" => "og:type",
+                ],
+                [
+                    "content" => env('APP_NAME', 'BCSDNGA'),
+                    "property" => "og:site_name",
+                ],
+                [
+                    "content" => $this->title,
+                    "property" => "og:title",
+                ],
+                [
+                    "content" => $this->summary,
+                    "property" => "og:description",
+                ],
+                [
+                    "content" => $this->image_thumbnail_url,
+                    "property" => "og:image",
+                ],
+            ],
             'id' => $this->id,
             'title' => $this->title,
             'slug' => $this->slug,
