@@ -1,15 +1,17 @@
 <?php
 
 use App\Http\Controllers\AboutController;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\InfoController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\PostController;
 use App\Http\Controllers\CategoryAndTagController;
+use App\Http\Controllers\GroupController;
+use App\Http\Controllers\InfoController;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\SubjectController;
+use App\Http\Controllers\TimetableController;
+use App\Http\Controllers\UserController;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,7 +22,7 @@ use App\Http\Controllers\CategoryAndTagController;
 | routes are loaded by the RouteServiceProvider within a group which
 | is assigned the "api" middleware group. Enjoy building your API!
 |
-*/
+ */
 
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
@@ -49,6 +51,18 @@ Route::group(['prefix' => 'v1'], function () {
 
     //User
     Route::get('/users', [UserController::class, 'index']);
+    Route::get('/users/teachers', [UserController::class, 'teachers']);
+    Route::get('/users/parents', [UserController::class, 'parents']);
+    Route::get('/users/students', [UserController::class, 'students']);
+
+    //Subject
+    Route::get('/subjects', [SubjectController::class, 'index']);
+
+    //Group
+    Route::get('/groups', [GroupController::class, 'index']);
+
+    //Timetable
+    Route::get('/timetables', [TimetableController::class, 'index']);
 
     //Post
     Route::get('/posts', [PostController::class, 'list']);
