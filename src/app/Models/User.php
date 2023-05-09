@@ -3,17 +3,17 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Contracts\StoragePath;
+use App\Models\Group;
+use App\Models\Post;
+use App\Models\Subject;
+use App\Traits\HasCustomModel;
+use App\Traits\HasUuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Facades\Storage;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
-use App\Traits\HasUuid;
-use App\Traits\HasCustomModel;
-
-use App\Models\Post;
-use App\Contracts\StoragePath;
 
 class User extends Authenticatable
 {
@@ -46,11 +46,10 @@ class User extends Authenticatable
      */
     protected $hidden = ['password', 'remember_token'];
 
-    
     /* -------------------------- *
      * ATTRIBUTE
      * -------------------------- */
-    
+
     public function getAvatarUrlAttribute()
     {
         //Check if $image is a URL or not, and then return data accordingly
@@ -75,5 +74,35 @@ class User extends Authenticatable
     public function abouts()
     {
         return $this->hasMany(About::class);
+    }
+
+    // If user has role is teacher
+    public function subjects()
+    {
+        return $this->belongsToMany(Subject::class, 'subject_has_teacher', 'teacher_id', 'subject_id');
+    }
+
+    // Set relationship between parent and student
+    public function parents()
+    {
+        return $this->belongsToMany(User::class, 'parent_has_student', 'student_id', 'parent_id')
+            ->wherePivot('role', 'parent');
+    }
+
+    public function students()
+    {
+        return $this->belongsToMany(User::class, 'parent_has_student', 'parent_id', 'student_id')
+            ->wherePivot('role', 'student');
+    }
+
+    // Set group
+    public function groupTeachers()
+    {
+        return $this->belongsToMany(Group::class, 'group_has_teacher', 'teacher_id', 'group_id');
+    }
+
+    public function groupStudents()
+    {
+        return $this->belongsToMany(Group::class, 'group_has_student', 'student_id', 'group_id', );
     }
 }
