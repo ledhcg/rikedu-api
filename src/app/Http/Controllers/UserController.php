@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\User;
+use App\Contracts\ModeQuery;
 use App\Http\Requests\User\StoreUserRequest;
 use App\Http\Requests\User\UpdateUserRequest;
 use App\Http\Resources\UserCollection;
-use App\Http\Resources\UserResource;
+use App\Models\Role;
+use App\Models\User;
 use App\Services\UserService;
-use App\Contracts\ModeQuery;
+use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
@@ -37,6 +37,47 @@ class UserController extends Controller
         );
     }
 
+    public function teachers(Request $request)
+    {
+        $perPage = $request->get('per_page', 15);
+
+        $role = Role::findByName('teacher');
+        $users = $role->users()->paginate($perPage);
+
+        $users->modeQuery = ModeQuery::MODEL_USER_TEACHER;
+        return $this->successResponse(
+            new UserCollection($users),
+            'Users retrieved successfully'
+        );
+    }
+
+    public function parents(Request $request)
+    {
+        $perPage = $request->get('per_page', 15);
+
+        $role = Role::findByName('parent');
+        $users = $role->users()->paginate($perPage);
+
+        $users->modeQuery = ModeQuery::MODEL_USER_PARENT;
+        return $this->successResponse(
+            new UserCollection($users),
+            'Users retrieved successfully'
+        );
+    }
+
+    public function students(Request $request)
+    {
+        $perPage = $request->get('per_page', 15);
+
+        $role = Role::findByName('student');
+        $users = $role->users()->paginate($perPage);
+
+        $users->modeQuery = ModeQuery::MODEL_USER_STUDENT;
+        return $this->successResponse(
+            new UserCollection($users),
+            'Users retrieved successfully'
+        );
+    }
     /**
      * Show the form for creating a new resource.
      *

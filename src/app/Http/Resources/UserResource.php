@@ -2,9 +2,8 @@
 
 namespace App\Http\Resources;
 
-use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Support\Str;
 use App\Contracts\ModeQuery;
+use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserResource extends JsonResource
 {
@@ -53,6 +52,75 @@ class UserResource extends JsonResource
                         'address' => $this->address,
                         'department' => $this->department,
                     ],
+                ];
+            case ModeQuery::MODEL_USER_PARENT:
+                return [
+                    'authentication' => $this->authentication,
+                    'authorization' => [
+                        'role' => $this->getRoleNames(),
+                        'permission' => $this->getPermissionsViaRoles()->pluck(
+                            'name'
+                        ),
+                    ],
+                    'user' => [
+                        'id' => $this->id,
+                        'username' => $this->username,
+                        'email' => $this->email,
+                        'full_name' => $this->full_name,
+                        'avatar_url' => $this->avatar_url,
+                        'gender' => $this->gender,
+                        'date_of_birth' => $this->date_of_birth,
+                        'phone' => $this->phone,
+                        'address' => $this->address,
+                        'department' => $this->department,
+                    ],
+                    'student' => $this->students,
+                ];
+            case ModeQuery::MODEL_USER_STUDENT:
+                return [
+                    'authentication' => $this->authentication,
+                    'authorization' => [
+                        'role' => $this->getRoleNames(),
+                        'permission' => $this->getPermissionsViaRoles()->pluck(
+                            'name'
+                        ),
+                    ],
+                    'user' => [
+                        'id' => $this->id,
+                        'username' => $this->username,
+                        'email' => $this->email,
+                        'full_name' => $this->full_name,
+                        'avatar_url' => $this->avatar_url,
+                        'gender' => $this->gender,
+                        'date_of_birth' => $this->date_of_birth,
+                        'phone' => $this->phone,
+                        'address' => $this->address,
+                        'department' => $this->department,
+                    ],
+                    'parent' => $this->parents,
+                ];
+            case ModeQuery::MODEL_USER_TEACHER:
+                return [
+                    'authentication' => $this->authentication,
+                    'authorization' => [
+                        'role' => $this->getRoleNames(),
+                        'permission' => $this->getPermissionsViaRoles()->pluck(
+                            'name'
+                        ),
+                    ],
+                    'user' => [
+                        'id' => $this->id,
+                        'username' => $this->username,
+                        'email' => $this->email,
+                        'full_name' => $this->full_name,
+                        'avatar_url' => $this->avatar_url,
+                        'gender' => $this->gender,
+                        'date_of_birth' => $this->date_of_birth,
+                        'phone' => $this->phone,
+                        'address' => $this->address,
+                        'department' => $this->department,
+                    ],
+                    'subject' => $this->subjects,
                 ];
         }
     }
