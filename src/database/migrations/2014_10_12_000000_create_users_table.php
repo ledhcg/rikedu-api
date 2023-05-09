@@ -33,6 +33,16 @@ return new class extends Migration
             $table->rememberToken();
             $table->timestamps();
         });
+
+        Schema::create('parent_has_student', function (Blueprint $table) {
+            $table->id();
+            $table->string('role')->nullable();
+            $table->timestamps();
+
+            $table->foreignUuid('parent_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreignUuid('student_id')->references('id')->on('users')->onDelete('cascade');
+        });
+
     }
 
     /**
@@ -43,5 +53,6 @@ return new class extends Migration
     public function down()
     {
         Schema::dropIfExists('users');
+        Schema::dropIfExists('parent_has_student');
     }
 };
