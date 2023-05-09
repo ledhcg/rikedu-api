@@ -21,12 +21,6 @@ class InfoSeeder extends Seeder
             'author' => 'Le Dinh Cuong',
             'keywords' => ['vietnam', 'school', 'control', 'rikedu'],
             'contact' => [
-                'address' => [
-                    'vi' =>
-                    'Tầng 3, số nhà 10, đường Pervaya Tverskai-Yamkai, Mátxcơva',
-                    'ru' =>
-                    'Москва, Ул. Первая Тверская-Ямская (метро Белорусская), Дом 30, Ком 25, 3 Этаж',
-                ],
                 'phone' => '+7 985 733 61 61',
                 'email' => 'dinhcuong.firewin99@gmail.com',
                 'social' => [
