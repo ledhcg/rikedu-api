@@ -2,10 +2,9 @@
 
 namespace Database\Seeders\Default;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
-use App\Models\Role;
 use App\Models\Permission;
+use App\Models\Role;
+use Illuminate\Database\Seeder;
 
 class RoleAndPermissionSeeder extends Seeder
 {
@@ -16,6 +15,10 @@ class RoleAndPermissionSeeder extends Seeder
      */
     public function run()
     {
+        $studentRole = Role::create(['name' => 'student']);
+        $teacherRole = Role::create(['name' => 'teacher']);
+        $parentRole = Role::create(['name' => 'parent']);
+
         // 1.Create roles
         $superAdminRole = Role::create(['name' => 'super admin']);
         $adminRole = Role::create(['name' => 'admin']);
