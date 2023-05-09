@@ -2,10 +2,11 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 use App\Models\Role;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
+
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
  */
@@ -57,7 +58,37 @@ class UserFactory extends Factory
     }
 
     /**
-     * Indicate that the user is an user.
+     * Indicate that the user is a teacher.
+     *
+     * @return Factory
+     */
+    public function teacher(): UserFactory
+    {
+        return $this->assignRole('teacher');
+    }
+
+    /**
+     * Indicate that the user is a student.
+     *
+     * @return Factory
+     */
+    public function student(): UserFactory
+    {
+        return $this->assignRole('student');
+    }
+
+    /**
+     * Indicate that the user is a parent.
+     *
+     * @return Factory
+     */
+    public function parent(): UserFactory
+    {
+        return $this->assignRole('parent');
+    }
+
+    /**
+     * Indicate that the user is a user.
      *
      * @return Factory
      */
