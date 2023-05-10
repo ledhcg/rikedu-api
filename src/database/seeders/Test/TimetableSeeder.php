@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Log;
 
 class TimetableSeeder extends Seeder
 {
+    const DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+    const LESSONS = 7;
+
     /**
      * Run the database seeds.
      *
@@ -17,10 +20,6 @@ class TimetableSeeder extends Seeder
     public function run()
     {
         $groups = Group::all();
-
-        $days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
-        $keys = array_keys($days);
-        $lessons = 7;
 
         foreach ($groups as $group) {
             $list_lesson_by_teacher_id = [];
@@ -39,20 +38,9 @@ class TimetableSeeder extends Seeder
             }
             shuffle($list_lesson_by_teacher_id);
             $count_lessons = 0;
-            // foreach ($days as $day) {
-            //     $lesson_on_day = [];
-            //     for ($i = 1; $i <= $lessons; $i++) {
-            //         array_push($lesson_on_day,
-            //             $list_lesson_by_teacher_id[$count_lessons]
-            //         );
-            //         $count_lessons++;
-            //     }
-            //     $timetable[$day] = $lesson_on_day;
-            // }
-            foreach ($keys as $key) {
-                $day = $days[$key];
+            foreach (self::DAYS as $day) {
                 $lesson_on_day = [];
-                for ($i = 1; $i <= $lessons; $i++) {
+                for ($i = 1; $i <= self::LESSONS; $i++) {
                     array_push($lesson_on_day,
                         $list_lesson_by_teacher_id[$count_lessons]
                     );
