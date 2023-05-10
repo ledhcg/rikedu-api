@@ -19,6 +19,7 @@ class TimetableSeeder extends Seeder
         $groups = Group::all();
 
         $days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+        $keys = array_keys($days);
         $lessons = 7;
 
         foreach ($groups as $group) {
@@ -38,7 +39,18 @@ class TimetableSeeder extends Seeder
             }
             shuffle($list_lesson_by_teacher_id);
             $count_lessons = 0;
-            foreach ($days as $day) {
+            // foreach ($days as $day) {
+            //     $lesson_on_day = [];
+            //     for ($i = 1; $i <= $lessons; $i++) {
+            //         array_push($lesson_on_day,
+            //             $list_lesson_by_teacher_id[$count_lessons]
+            //         );
+            //         $count_lessons++;
+            //     }
+            //     $timetable[$day] = $lesson_on_day;
+            // }
+            foreach ($keys as $key) {
+                $day = $days[$key];
                 $lesson_on_day = [];
                 for ($i = 1; $i <= $lessons; $i++) {
                     array_push($lesson_on_day,
@@ -48,6 +60,7 @@ class TimetableSeeder extends Seeder
                 }
                 $timetable[$day] = $lesson_on_day;
             }
+
             Log::info(json_encode($timetable));
             Timetable::factory()->create([
                 "group_id" => $group->id,
