@@ -63,6 +63,7 @@ Route::group(['prefix' => 'v1'], function () {
 
     //Timetable
     Route::get('/timetables', [TimetableController::class, 'index']);
+    Route::get('/timetables/generate', [TimetableController::class, 'generate']);
 
     //Post
     Route::get('/posts', [PostController::class, 'list']);

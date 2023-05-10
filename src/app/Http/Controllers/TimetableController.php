@@ -5,11 +5,14 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreTimetableRequest;
 use App\Http\Requests\UpdateTimetableRequest;
 use App\Http\Resources\TimetableCollection;
+use App\Models\Group;
 use App\Models\Timetable;
 use Illuminate\Http\Request;
 
 class TimetableController extends Controller
 {
+    const DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+    const LESSONS = 7;
     /**
      * Display a listing of the resource.
      *
@@ -26,23 +29,55 @@ class TimetableController extends Controller
             'Timetables retrieved successfully'
         );
     }
+    public function generate()
+    {
+        Timetable::truncate();
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+        $groups = Group::all();
+
+        foreach ($groups as $group) {
+            $list_lesson_by_teacher_id = [];
+            $timetable = [];
+            $teachers_of_group = $group->teachers;
+            $rooms_of_group = $group->rooms;
+            foreach ($teachers_of_group as $index => $teacher) {
+                for ($i = 1; $i <= intval($teacher->subjects->pluck('week_lessons')[0]); $i++) {
+                    array_push($list_lesson_by_teacher_id,
+                        [
+                            "teacher_id" => $teacher->id,
+                            "room_id" => $rooms_of_group[$index]->id,
+                        ]
+                    );
+                }
+            }
+            shuffle($list_lesson_by_teacher_id);
+            $count_lessons = 0;
+            foreach (self::DAYS as $day) {
+                $lesson_on_day = [];
+                for ($i = 1; $i <= self::LESSONS; $i++) {
+                    array_push($lesson_on_day,
+                        $list_lesson_by_teacher_id[$count_lessons]
+                    );
+                    $count_lessons++;
+                }
+                $timetable[$day] = $lesson_on_day;
+            }
+            Timetable::create([
+                "group_id" => $group->id,
+                "data" => json_encode($timetable),
+            ]);
+        }
+        return $this->successResponse(
+            true,
+            'Timetables generated successfully'
+        );
+    }
+
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreTimetableRequest  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(StoreTimetableRequest $request)
     {
         //
