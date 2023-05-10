@@ -13,6 +13,11 @@ class Timetable extends Model
 {
     use HasFactory, HasUuid;
 
+    protected $fillable = [
+        'group_id',
+        'data',
+    ];
+
     public function getGroupNameAttribute()
     {
         $group = Group::find($this->attributes['group_id']);
