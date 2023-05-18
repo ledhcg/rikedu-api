@@ -2,17 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
+use App\Contracts\ModeQuery;
+use App\Contracts\StoragePath;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use App\Services\AuthService;
 use App\Services\UserService;
-use App\Contracts\ModeQuery;
-use App\Contracts\StoragePath;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -71,7 +70,18 @@ class AuthController extends Controller
                     ->plainTextToken,
                 'token_type' => 'Bearer',
             ];
-            $user->modeQuery = ModeQuery::MODEL_SINGLE;
+
+            if ($user->hasRole('teacher')) {
+                $users->modeQuery = ModeQuery::MODEL_USER_TEACHER;
+            } else
+            if ($user->hasRole('student')) {
+                $users->modeQuery = ModeQuery::MODEL_USER_STUDENT;
+            } else
+            if ($user->hasRole('parent')) {
+                $users->modeQuery = ModeQuery::MODEL_USER_PARENT;
+            } else {
+                $user->modeQuery = ModeQuery::MODEL_SINGLE;
+            }
 
             return $this->successResponse(
                 new UserResource($user),
