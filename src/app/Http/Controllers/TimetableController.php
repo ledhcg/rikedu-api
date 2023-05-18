@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreTimetableRequest;
 use App\Http\Requests\UpdateTimetableRequest;
 use App\Http\Resources\TimetableCollection;
+use App\Http\Resources\TimetableResource;
 use App\Models\Group;
 use App\Models\Timetable;
 use Illuminate\Http\Request;
@@ -83,15 +84,17 @@ class TimetableController extends Controller
         //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Timetable  $timetable
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Timetable $timetable)
+    public function show($groupId)
     {
-        //
+        $timetable = Timetable::where('group_id', $groupId)->first();
+
+        if (!$timetable) {
+            return $this->notFoundResponse('Timetable not found');
+        }
+        return $this->successResponse(
+            new TimetableResource($timetable),
+            'Timetable retrieved successfully'
+        );
     }
 
     /**
