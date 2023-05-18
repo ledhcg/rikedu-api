@@ -98,6 +98,7 @@ class UserResource extends JsonResource
                         'department' => $this->department,
                     ],
                     'parent' => $this->parents,
+                    'group' => $this->groupStudents,
                 ];
             case ModeQuery::MODEL_USER_TEACHER:
                 return [
@@ -121,6 +122,7 @@ class UserResource extends JsonResource
                         'department' => $this->department,
                     ],
                     'subject' => $this->subjects,
+                    'group' => $this->groupTeachers,
                 ];
         }
     }
