@@ -2864,6 +2864,8 @@ class UserSeeder extends Seeder
         $faker = Faker::create();
 
         foreach (self::TEACHERS as $teacher) {
+            $randomNumber = random_int(1, 12);
+
             User::factory()
                 ->teacher()
                 ->create([
@@ -2873,7 +2875,7 @@ class UserSeeder extends Seeder
                     'first_name' => $teacher['firstName'],
                     'last_name' => $teacher['lastName'],
                     'bio' => $faker->sentence(),
-                    'image' => 'https://picsum.photos/seed/avatar/600/600.webp',
+                    'image' => 'https://api.ledinhcuong.com/storage/images/default/avatar/' . $randomNumber . '.png',
                     'gender' => $this->convert_gender($teacher['gender']),
                     'date_of_birth' => $faker->date(),
                     'phone' => $faker->phoneNumber,
@@ -2887,6 +2889,8 @@ class UserSeeder extends Seeder
         }
 
         foreach (self::STUDENTS as $student) {
+            $randomNumber = random_int(1, 12);
+
             User::factory()
                 ->student()
                 ->create([
@@ -2896,7 +2900,7 @@ class UserSeeder extends Seeder
                     'first_name' => $student['firstName'],
                     'last_name' => $student['lastName'],
                     'bio' => $faker->sentence(),
-                    'image' => 'https://picsum.photos/seed/avatar/600/600.webp',
+                    'image' => 'https://api.ledinhcuong.com/storage/images/default/avatar/' . $randomNumber . '.png',
                     'gender' => $this->convert_gender($student['gender']),
                     'date_of_birth' => $faker->date(),
                     'phone' => $faker->phoneNumber,
@@ -2910,6 +2914,8 @@ class UserSeeder extends Seeder
         }
 
         foreach (self::PARENTS as $parent) {
+            $randomNumber = random_int(1, 12);
+
             User::factory()
                 ->parent()
                 ->create([
@@ -2919,7 +2925,7 @@ class UserSeeder extends Seeder
                     'first_name' => $parent['firstName'],
                     'last_name' => $parent['lastName'],
                     'bio' => $faker->sentence(),
-                    'image' => 'https://picsum.photos/seed/avatar/600/600.webp',
+                    'image' => 'https://api.ledinhcuong.com/storage/images/default/avatar/' . $randomNumber . '.png',
                     'gender' => $this->convert_gender($parent['gender']),
                     'date_of_birth' => $faker->date(),
                     'phone' => $faker->phoneNumber,
@@ -2942,7 +2948,7 @@ class UserSeeder extends Seeder
                 'first_name' => $faker->firstName,
                 'last_name' => $faker->lastName,
                 'bio' => $faker->sentence(),
-                'image' => 'https://picsum.photos/seed/avatar/600/600.webp',
+                'image' => 'https://api.ledinhcuong.com/storage/images/default/avatar/1.png',
                 'gender' => $faker->randomElement(['Male', 'Female', 'Other']),
                 'date_of_birth' => $faker->date(),
                 'phone' => $faker->phoneNumber,
