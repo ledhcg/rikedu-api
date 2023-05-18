@@ -72,13 +72,13 @@ class AuthController extends Controller
             ];
 
             if ($user->hasRole('teacher')) {
-                $users->modeQuery = ModeQuery::MODEL_USER_TEACHER;
+                $user->modeQuery = ModeQuery::MODEL_USER_TEACHER;
             } else
             if ($user->hasRole('student')) {
-                $users->modeQuery = ModeQuery::MODEL_USER_STUDENT;
+                $user->modeQuery = ModeQuery::MODEL_USER_STUDENT;
             } else
             if ($user->hasRole('parent')) {
-                $users->modeQuery = ModeQuery::MODEL_USER_PARENT;
+                $user->modeQuery = ModeQuery::MODEL_USER_PARENT;
             } else {
                 $user->modeQuery = ModeQuery::MODEL_SINGLE;
             }
