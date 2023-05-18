@@ -29,8 +29,6 @@ class Timetable extends Model
         $data = json_decode($this->attributes['data']);
         $result = [];
         foreach ($data as $key => $day) {
-            // Log::info($dt);
-            // Log::info($key);
             $lessons = [];
             foreach ($day as $lesson) {
                 $teacher = User::where('id', $lesson->teacher_id)->first();
