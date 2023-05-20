@@ -57,7 +57,7 @@ class TimetableSeeder extends Seeder
             Log::info(json_encode($timetable));
             Timetable::factory()->create([
                 "group_id" => $group->id,
-                "data" => json_encode(array_values($timetable)),
+                "data" => json_encode($timetable, JSON_UNESCAPED_UNICODE),
             ]);
         }
     }
