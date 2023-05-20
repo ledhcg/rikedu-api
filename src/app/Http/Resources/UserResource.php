@@ -74,7 +74,18 @@ class UserResource extends JsonResource
                         'address' => $this->address,
                         'department' => $this->department,
                     ],
-                    'student' => $this->students,
+                    'student' => [
+                        'id' => $this->students->pluck('id')->implode(''),
+                        'username' => $this->students->pluck('username')->implode(''),
+                        'email' => $this->students->pluck('email')->implode(''),
+                        'full_name' => $this->students->pluck('full_name')->implode(''),
+                        'avatar_url' => $this->students->pluck('avatar_url')->implode(''),
+                        'gender' => $this->students->pluck('gender')->implode(''),
+                        'date_of_birth' => $this->students->pluck('date_of_birth')->implode(''),
+                        'phone' => $this->students->pluck('phone')->implode(''),
+                        'address' => $this->students->pluck('address')->implode(''),
+                        'department' => $this->students->pluck('department')->implode(''),
+                    ],
                 ];
             case ModeQuery::MODEL_USER_STUDENT:
                 return [
@@ -97,7 +108,18 @@ class UserResource extends JsonResource
                         'address' => $this->address,
                         'department' => $this->department,
                     ],
-                    'parent' => $this->parents,
+                    'parent' => [
+                        'id' => $this->parents->pluck('id')->implode(''),
+                        'username' => $this->parents->pluck('username')->implode(''),
+                        'email' => $this->parents->pluck('email')->implode(''),
+                        'full_name' => $this->parents->pluck('full_name')->implode(''),
+                        'avatar_url' => $this->parents->pluck('avatar_url')->implode(''),
+                        'gender' => $this->parents->pluck('gender')->implode(''),
+                        'date_of_birth' => $this->parents->pluck('date_of_birth')->implode(''),
+                        'phone' => $this->parents->pluck('phone')->implode(''),
+                        'address' => $this->parents->pluck('address')->implode(''),
+                        'department' => $this->parents->pluck('department')->implode(''),
+                    ],
                     'group' => $this->groupStudents,
                 ];
             case ModeQuery::MODEL_USER_TEACHER:
