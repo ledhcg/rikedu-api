@@ -26,25 +26,36 @@ class Timetable extends Model
 
     public function getDataDecodeAttribute()
     {
+        $days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
         $data = json_decode($this->attributes['data']);
         $result = [];
-        foreach ($data as $key => $day) {
+        foreach ($data as $index => $day) {
             $lessons = [];
-            if ($key != 'Saturday' || $key != 'Sunday') {
-                foreach ($day as $lesson) {
-                    $teacher = User::where('id', $lesson->teacher_id)->first();
-                    $room = Room::where('id', $lesson->room_id)->first();
-                    array_push($lessons,
-                        [
-                            "subject" => $teacher->subjects->pluck('name')[0],
-                            "room" => $room->name,
-                            "teacher" => $teacher->full_name,
-                        ]
-                    );
-                }
+            // if ($key != 'Saturday' || $key != 'Sunday') {
+            //     foreach ($day as $lesson) {
+            //         $teacher = User::where('id', $lesson->teacher_id)->first();
+            //         $room = Room::where('id', $lesson->room_id)->first();
+            //         array_push($lessons,
+            //             [
+            //                 "subject" => $teacher->subjects->pluck('name')[0],
+            //                 "room" => $room->name,
+            //                 "teacher" => $teacher->full_name,
+            //             ]
+            //         );
+            //     }
+            // }
+            foreach ($day as $lesson) {
+                $teacher = User::where('id', $lesson->teacher_id)->first();
+                $room = Room::where('id', $lesson->room_id)->first();
+                array_push($lessons,
+                    [
+                        "subject" => $teacher->subjects->pluck('name')[0],
+                        "room" => $room->name,
+                        "teacher" => $teacher->full_name,
+                    ]
+                );
             }
-
-            $result[$key] = $lessons;
+            $result[$days[$index]] = $lessons;
         }
         return $result;
     }
