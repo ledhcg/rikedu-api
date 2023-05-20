@@ -30,17 +30,20 @@ class Timetable extends Model
         $result = [];
         foreach ($data as $key => $day) {
             $lessons = [];
-            foreach ($day as $lesson) {
-                $teacher = User::where('id', $lesson->teacher_id)->first();
-                $room = Room::where('id', $lesson->room_id)->first();
-                array_push($lessons,
-                    [
-                        "subject" => $teacher->subjects->pluck('name')[0],
-                        "room" => $room->name,
-                        "teacher" => $teacher->full_name,
-                    ]
-                );
+            if ($key != 'Saturday' || $key != 'Sunday') {
+                foreach ($day as $lesson) {
+                    $teacher = User::where('id', $lesson->teacher_id)->first();
+                    $room = Room::where('id', $lesson->room_id)->first();
+                    array_push($lessons,
+                        [
+                            "subject" => $teacher->subjects->pluck('name')[0],
+                            "room" => $room->name,
+                            "teacher" => $teacher->full_name,
+                        ]
+                    );
+                }
             }
+
             $result[$key] = $lessons;
         }
         return $result;

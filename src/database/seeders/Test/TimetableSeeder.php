@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Log;
 class TimetableSeeder extends Seeder
 {
     const DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+    const WEEKEND = ["Saturday", "Sunday"];
     const LESSONS = 7;
 
     /**
@@ -47,6 +48,10 @@ class TimetableSeeder extends Seeder
                     $count_lessons++;
                 }
                 $timetable[$day] = $lesson_on_day;
+            }
+
+            foreach (self::WEEKEND as $day) {
+                $timetable[$day] = [];
             }
 
             Log::info(json_encode($timetable));
