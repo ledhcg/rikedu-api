@@ -2940,7 +2940,6 @@ class UserSeeder extends Seeder
 
         User::factory()
             ->superAdmin()
-            ->hasPosts(10)
             ->create([
                 'username' => 'superadmin',
                 'email' => 'superadmin@admin.rikedu.ru',
