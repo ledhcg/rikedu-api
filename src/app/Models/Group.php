@@ -12,6 +12,11 @@ class Group extends Model
 {
     use HasFactory, HasUuid;
 
+    public function getGroupNameAttribute()
+    {
+        return $this->attributes['grade'] . $this->attributes['name'];
+    }
+
     public function teachers()
     {
         return $this->belongsToMany(User::class, 'group_has_teacher', 'group_id', 'teacher_id');

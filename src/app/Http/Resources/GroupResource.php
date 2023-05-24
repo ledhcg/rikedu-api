@@ -22,6 +22,7 @@ class GroupResource extends JsonResource
                 'time' => $this->time,
                 'description' => $this->description,
             ],
+            'group_name' => $this->groupName,
             // 'teachers' => $this->teachers,
             'teachers' => $this->teachers->map(function ($teacher) {
                 return [
