@@ -14,6 +14,14 @@ class ExamResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        // return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'subject_name' => $this->subjectName,
+            'title' => $this->title,
+            'description' => $this->description,
+            'mark' => $this->mark,
+            'review' => $this->review,
+        ];
     }
 }

@@ -18,7 +18,7 @@ class ExamSeeder extends Seeder
     {
         $groups = Group::all();
         foreach ($groups as $group) {
-            $subjects = Subject::all();
+            $subjects = Subject::where('grade', $group->grade)->get();
             foreach ($subjects as $subject) {
                 foreach ($group->students as $student) {
                     Exam::factory()->create([
