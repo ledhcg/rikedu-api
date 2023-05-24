@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreResultRequest;
 use App\Http\Requests\UpdateResultRequest;
-use App\Http\Resources\ResultResource;
+use App\Http\Resources\ResultCollection;
 use App\Models\Result;
 
 class ResultController extends Controller
@@ -21,14 +21,14 @@ class ResultController extends Controller
 
     public function listByStudent($studentID)
     {
-        $result = Result::where('student_id', $studentID)->first();
-        if (!$result) {
-            return $this->notFoundResponse('Result not found');
+        $results = Result::where('student_id', $studentID)->get();
+        if (!$results) {
+            return $this->notFoundResponse('Results not found');
         }
 
         return $this->successResponse(
-            new ResultResource($result),
-            'Result retrieved successfully'
+            new ResultCollection($results),
+            'Results retrieved successfully'
         );
     }
 
