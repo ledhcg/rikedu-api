@@ -60,6 +60,7 @@ Route::group(['prefix' => 'v1'], function () {
 
     //Group
     Route::get('/groups', [GroupController::class, 'index']);
+    Route::get('/groups/{groupId}', [GroupController::class, 'show']);
 
     //Timetable
     Route::get('/timetables', [TimetableController::class, 'index']);

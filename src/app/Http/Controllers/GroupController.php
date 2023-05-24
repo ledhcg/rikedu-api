@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreGroupRequest;
 use App\Http\Requests\UpdateGroupRequest;
 use App\Http\Resources\GroupCollection;
+use App\Http\Resources\GroupResource;
 use App\Models\Group;
 use Illuminate\Http\Request;
 
@@ -54,9 +55,17 @@ class GroupController extends Controller
      * @param  \App\Models\Group  $group
      * @return \Illuminate\Http\Response
      */
-    public function show(Group $group)
+    public function show($groupId)
     {
-        //
+        $group = Group::where('id', $groupId)->first();
+
+        if (!$group) {
+            return $this->notFoundResponse('Group not found');
+        }
+        return $this->successResponse(
+            new GroupResource($group),
+            'Group retrieved successfully'
+        );
     }
 
     /**
