@@ -3,9 +3,11 @@
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryAndTagController;
+use App\Http\Controllers\ExamController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\InfoController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\ResultController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\TimetableController;
 use App\Http\Controllers\UserController;
@@ -61,6 +63,14 @@ Route::group(['prefix' => 'v1'], function () {
     //Group
     Route::get('/groups', [GroupController::class, 'index']);
     Route::get('/groups/{groupId}', [GroupController::class, 'show']);
+
+    //Result
+    Route::get('/results', [ResultController::class, 'index']);
+    Route::get('/results/{studentId}', [ResultController::class, 'listByStudent']);
+
+    //Exam
+    Route::get('/exams', [ExamController::class, 'index']);
+    Route::get('/exams/{studentId}', [ExamController::class, 'listByStudent']);
 
     //Timetable
     Route::get('/timetables', [TimetableController::class, 'index']);
