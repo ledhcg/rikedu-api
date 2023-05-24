@@ -7,6 +7,7 @@ use Database\Seeders\Default\CategoryAndTagSeeder;
 use Database\Seeders\Default\ExamSeeder;
 use Database\Seeders\Default\GroupSeeder;
 use Database\Seeders\Default\InfoSeeder;
+use Database\Seeders\Default\NotificationSeeder;
 use Database\Seeders\Default\ResultSeeder;
 use Database\Seeders\Default\RoleAndPermissionSeeder;
 use Database\Seeders\Default\RoomSeeder;
@@ -37,6 +38,7 @@ class DatabaseSeeder extends Seeder
             TimetableSeeder::class,
             ResultSeeder::class,
             ExamSeeder::class,
+            NotificationSeeder::class,
         ]);
     }
 }

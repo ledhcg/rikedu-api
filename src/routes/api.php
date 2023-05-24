@@ -6,6 +6,7 @@ use App\Http\Controllers\CategoryAndTagController;
 use App\Http\Controllers\ExamController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\InfoController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ResultController;
 use App\Http\Controllers\SubjectController;
@@ -76,6 +77,11 @@ Route::group(['prefix' => 'v1'], function () {
     Route::get('/timetables', [TimetableController::class, 'index']);
     Route::get('/timetables/{groupId}', [TimetableController::class, 'show']);
     Route::get('/timetables/generate', [TimetableController::class, 'generate']);
+
+    //Notification
+    Route::resource('notifications', NotificationController::class);
+    Route::get('notifications/user/{userID}', [NotificationController::class, 'listByUserID']);
+    Route::put('notifications/{id}/mark-as-read', [NotificationController::class, 'markAsRead']);
 
     //Post
     Route::get('/posts', [PostController::class, 'list']);
