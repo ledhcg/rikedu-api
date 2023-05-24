@@ -493,11 +493,12 @@ class CategoryAndTagSeeder extends Seeder
         $user = User::where('email', 'superadmin@admin.rikedu.ru')->first();
 
         foreach ($categories_1 as $post) {
+            $randomNumber = random_int(1, 34);
             $postStore = Post::factory()->create([
                 'user_id' => $user->id,
                 'title' => $post["title"],
                 'slug' => Str::slug($post["title"]),
-                'image' => 'https://api.ledinhcuong.com/storage/images/default/posts/1.jpg',
+                'image' => 'https://api.ledinhcuong.com/storage/images/default/posts/' . $randomNumber . '.jpg',
                 'content' => $post["content"],
                 'summary' => $post["summary"],
                 'published' => true,
@@ -509,11 +510,12 @@ class CategoryAndTagSeeder extends Seeder
         }
 
         foreach ($categories_2 as $post) {
+            $randomNumber = random_int(1, 34);
             $postStore = Post::factory()->create([
                 'user_id' => $user->id,
                 'title' => $post["title"],
                 'slug' => Str::slug($post["title"]),
-                'image' => 'https://api.ledinhcuong.com/storage/images/default/posts/1.jpg',
+                'image' => 'https://api.ledinhcuong.com/storage/images/default/posts/' . $randomNumber . '.jpg',
                 'content' => $post["content"],
                 'summary' => $post["summary"],
                 'published' => true,
@@ -526,11 +528,12 @@ class CategoryAndTagSeeder extends Seeder
         }
 
         foreach ($categories_3 as $post) {
+            $randomNumber = random_int(1, 34);
             $postStore = Post::factory()->create([
                 'user_id' => $user->id,
                 'title' => $post["title"],
                 'slug' => Str::slug($post["title"]),
-                'image' => 'https://api.ledinhcuong.com/storage/images/default/posts/1.jpg',
+                'image' => 'https://api.ledinhcuong.com/storage/images/default/posts/' . $randomNumber . '.jpg',
                 'content' => $post["content"],
                 'summary' => $post["summary"],
                 'published' => true,
@@ -542,11 +545,12 @@ class CategoryAndTagSeeder extends Seeder
         }
 
         foreach ($categories_4 as $post) {
+            $randomNumber = random_int(1, 34);
             $postStore = Post::factory()->create([
                 'user_id' => $user->id,
                 'title' => $post["title"],
                 'slug' => Str::slug($post["title"]),
-                'image' => 'https://api.ledinhcuong.com/storage/images/default/posts/1.jpg',
+                'image' => 'https://api.ledinhcuong.com/storage/images/default/posts/' . $randomNumber . '.jpg',
                 'content' => $post["content"],
                 'summary' => $post["summary"],
                 'published' => true,
