@@ -9,6 +9,7 @@ use App\Http\Controllers\GroupController;
 use App\Http\Controllers\InfoController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\RandomController;
 use App\Http\Controllers\ResultController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\TimetableController;
@@ -87,6 +88,10 @@ Route::group(['prefix' => 'v1'], function () {
     //Exercise
     Route::get('exercises/user/{userID}', [ExerciseController::class, 'listByStudent']);
     Route::put('exercises/{id}/submit', [ExerciseController::class, 'submit']);
+
+    //Random
+    Route::get('random/quote', [RandomController::class, 'quote']);
+    Route::get('random/image', [RandomController::class, 'image']);
 
     //Post
     Route::get('/posts', [PostController::class, 'list']);
