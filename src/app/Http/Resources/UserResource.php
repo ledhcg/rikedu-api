@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use App\Contracts\ModeQuery;
+use App\Models\User;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserResource extends JsonResource
@@ -54,6 +55,8 @@ class UserResource extends JsonResource
                     ],
                 ];
             case ModeQuery::MODEL_USER_PARENT:
+                $student = User::where('id', $this->students->pluck('id')->implode(''))->first();
+
                 return [
                     'authentication' => $this->authentication,
                     'authorization' => [
@@ -86,6 +89,7 @@ class UserResource extends JsonResource
                         'address' => $this->students->pluck('address')->implode(''),
                         'department' => $this->students->pluck('department')->implode(''),
                     ],
+                    'group' => $student->groupStudents,
                 ];
             case ModeQuery::MODEL_USER_STUDENT:
                 return [
