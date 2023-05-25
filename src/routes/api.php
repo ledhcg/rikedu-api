@@ -4,6 +4,7 @@ use App\Http\Controllers\AboutController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryAndTagController;
 use App\Http\Controllers\ExamController;
+use App\Http\Controllers\ExerciseController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\InfoController;
 use App\Http\Controllers\NotificationController;
@@ -82,6 +83,10 @@ Route::group(['prefix' => 'v1'], function () {
     Route::resource('notifications', NotificationController::class);
     Route::get('notifications/user/{userID}', [NotificationController::class, 'listByUserID']);
     Route::put('notifications/{id}/mark-as-read', [NotificationController::class, 'markAsRead']);
+
+    //Exercise
+    Route::get('exercises/user/{userID}', [ExerciseController::class, 'listByStudent']);
+    Route::put('exercises/{id}/submit', [ExerciseController::class, 'submit']);
 
     //Post
     Route::get('/posts', [PostController::class, 'list']);

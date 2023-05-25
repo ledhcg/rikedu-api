@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Database\Seeders\Default\CategoryAndTagSeeder;
 use Database\Seeders\Default\ExamSeeder;
+use Database\Seeders\Default\ExerciseSeeder;
 use Database\Seeders\Default\GroupSeeder;
 use Database\Seeders\Default\InfoSeeder;
 use Database\Seeders\Default\NotificationSeeder;
@@ -39,6 +40,7 @@ class DatabaseSeeder extends Seeder
             ResultSeeder::class,
             ExamSeeder::class,
             NotificationSeeder::class,
+            ExerciseSeeder::class,
         ]);
     }
 }
