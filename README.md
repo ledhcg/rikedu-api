@@ -2,7 +2,7 @@
 
 1. Clone the repo
     ```sh
-    git clone https://github.com/bcsdlbnga/website-backend.git
+    git clone https://github.com/ledhcg/rikedu-api.git
     ```
 2. Go to folder
     ```sh
@@ -26,7 +26,7 @@
 
 1. Clone the repo
     ```sh
-    git clone https://github.com/bcsdlbnga/website-backend.git
+    git clone https://github.com/ledhcg/rikedu-api.git
     ```
 2. Go to folder
     ```sh
@@ -111,10 +111,10 @@ package-lock.json
 -   Add lines:
 
 ```env
-PROJECT_NAME=BCSD
+PROJECT_NAME=RIKEDU
 
-MYSQL_DATABASE=bcsd
-MYSQL_USER=bcsd
+MYSQL_DATABASE=rikedu
+MYSQL_USER=rikedu
 MYSQL_PASSWORD=secret
 MYSQL_ROOT_PASSWORD=secret
 
@@ -125,6 +125,6 @@ PMA_PASSWORD=secret
 
 ## Documentation
 
--   Open the Postman app and select the collection "BCSD".
+-   Open the Postman app and select the collection "RIKEDU".
 -   Click on the "..." button next to the collection name and select "View Documentation".
 -   The documentation will be displayed in a new tab in the Postman app.
