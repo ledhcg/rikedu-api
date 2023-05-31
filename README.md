@@ -6,7 +6,7 @@
     ```
 2. Go to folder
     ```sh
-    cd website-backend
+    cd rikedu-api
     ```
 3. Build and run with docker
     ```sh
@@ -30,7 +30,7 @@
     ```
 2. Go to folder
     ```sh
-    cd website-backend/src
+    cd rikedu-api/src
     ```
 3. Copy ".env.example" to ".env"
 4. Install package
