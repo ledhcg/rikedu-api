@@ -8,3 +8,5 @@ package-lock.json
 /mysql
 /certs
 /data
+/certbot
+
