@@ -2,20 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
-
-use App\Models\Post;
-
-use App\Http\Requests\Post\StorePostRequest;
-use App\Http\Requests\Post\UpdatePostRequest;
-
-use App\Http\Resources\PostCollection;
-use App\Http\Resources\PostResource;
-
-use App\Services\PostService;
 use App\Contracts\ModeQuery;
 use App\Contracts\StoragePath;
+use App\Http\Requests\Post\StorePostRequest;
+use App\Http\Requests\Post\UpdatePostRequest;
+use App\Http\Resources\PostCollection;
+use App\Http\Resources\PostResource;
+use App\Models\Post;
+use App\Services\PostService;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -31,11 +27,10 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function list(Request $request)
-    {
+    function list(Request $request) {
         $perPage = $request->get('per_page', 15);
 
-        $posts = Post::paginate($perPage);
+        $posts = Post::orderBy('published_at', 'desc')->paginate($perPage);
 
         return $this->successResponse(
             new PostCollection($posts),
@@ -54,10 +49,10 @@ class PostController extends Controller
 
         switch ($group) {
             case ModeQuery::GROUP_BY_CATEGORY:
-                $posts = Post::withCategorySlug($slug)->paginate($perPage);
+                $posts = Post::withCategorySlug($slug)->orderBy('published_at', 'desc')->paginate($perPage);
                 break;
             case ModeQuery::GROUP_BY_TAG:
-                $posts = Post::withTagSlug($slug)->paginate($perPage);
+                $posts = Post::withTagSlug($slug)->orderBy('published_at', 'desc')->paginate($perPage);
                 break;
         }
         return $this->successResponse(
