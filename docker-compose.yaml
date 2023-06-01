@@ -22,8 +22,8 @@ services:
     certbot:
         image: certbot/certbot
         volumes:
-        - ./certs:/etc/letsencrypt
-        - ./certbot/conf:/etc/letsencrypt
+        - ./certs:/etc/letsencrypt/conf:rw
+        - ./certbot/conf:/etc/letsencrypt/conf:rw
         - ./certbot/www:/var/www/certbot
         command: certonly --webroot --webroot-path=/var/www/certbot --email rikedu@ledinhcuong.com --agree-tos --no-eff-email --force-renewal -d rikedu.ledinhcuong.com
         networks:
