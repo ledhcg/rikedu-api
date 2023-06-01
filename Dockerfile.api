@@ -21,7 +21,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- \
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-WORKDIR /var/www/html
+WORKDIR /var/www/api
 
 COPY ./src .
 COPY ./src/.env.example ./.env

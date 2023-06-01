@@ -17,8 +17,12 @@
     ```sh
     docker-compose exec api php artisan migrate:fresh --seed
     ```
+5. Running certbot (Option deploy with ssl)
 
-5. You can use:
+    ```sh
+    docker-compose run certbot certonly --webroot --webroot-path=/var/www/certbot --email rikedu@ledinhcuong.com --agree-tos --no-eff-email -d rikedu.ledinhcuong.com
+    ```
+6. You can use:
 
 -   [API] on `127.0.0.1:8000` or `localhost:8000`
 

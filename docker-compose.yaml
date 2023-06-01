@@ -1,6 +1,33 @@
 version: '3.8'
 
 services:
+    # Web Server Service
+    webserver:
+        image: nginx:alpine
+        container_name: ${PROJECT_NAME}-webserver
+        restart: unless-stopped
+        tty: true
+        ports:
+            - '80:80'
+            - '443:443'
+        volumes:
+            - ./src:/var/www/api/
+            - ./nginx/conf.d/:/etc/nginx/conf.d/
+            - ./certs:/etc/nginx/certs
+        depends_on:
+            - api
+            - db
+        networks:
+            - starter_networks
+    certbot:
+        image: certbot/certbot
+        volumes:
+        - ./certs:/etc/letsencrypt
+        - ./certbot/conf:/etc/letsencrypt
+        - ./certbot/www:/var/www/certbot
+        command: certonly --webroot --webroot-path=/var/www/certbot --email rikedu@ledinhcuong.com --agree-tos --no-eff-email --force-renewal -d rikedu.ledinhcuong.com
+        networks:
+            - starter_networks
     #Database Service
     db:
         image: mysql:8.0
