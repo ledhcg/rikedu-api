@@ -22,6 +22,7 @@ services:
         networks:
             - starter_networks
     certbot:
+        container_name: ${PROJECT_NAME}-certbot
         image: certbot/certbot
         volumes:
         - ./data/certbot/conf:/etc/letsencrypt
