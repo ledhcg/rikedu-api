@@ -74,6 +74,7 @@ services:
                 - DB_DATABASE=${MYSQL_DATABASE}
                 - DB_USERNAME=${MYSQL_USER}
                 - DB_PASSWORD=${MYSQL_PASSWORD}
+            context: .
             dockerfile: Dockerfile.api
         command: 'php artisan serve --host=0.0.0.0'
         container_name: ${PROJECT_NAME}-api
