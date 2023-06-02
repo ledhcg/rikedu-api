@@ -10,17 +10,17 @@
     ```
 3. Build and run with docker
     ```sh
-    docker-compose --env-file .env.docker up --build
+    (sudo) docker-compose --env-file .env.docker up --build
     ```
 4. Running Seeders
 
     ```sh
-    docker-compose exec api php artisan migrate:fresh --seed
+    (sudo) docker-compose exec api php artisan migrate:fresh --seed
     ```
 5. Running certbot (Option deploy with ssl)
 
     ```sh
-    docker-compose run certbot certonly --webroot --webroot-path=/var/www/certbot --email rikedu@ledinhcuong.com --agree-tos --no-eff-email -d rikedu.ledinhcuong.com
+    (sudo) docker-compose run certbot certonly --webroot --webroot-path=/var/www/certbot --email rikedu@ledinhcuong.com --agree-tos --no-eff-email -d rikedu.ledinhcuong.com
     ```
 6. You can use:
 
