@@ -17,7 +17,12 @@
     ```sh
     (sudo) docker-compose exec api php artisan migrate:fresh --seed
     ```
-5. You can use:
+5. Add SSL with certbot
+    ```sh
+    chmod +x init-letsencrypt.sh
+    sudo ./init-letsencrypt.sh
+    ```
+6. You can use:
 
 -   [API] on `127.0.0.1:80` or `localhost:80`
 
