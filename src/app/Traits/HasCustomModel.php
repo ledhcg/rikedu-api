@@ -21,4 +21,27 @@ trait HasCustomModel
         $this->attributes['last_name'] . ' ' . $this->attributes['first_name']
         ;
     }
+
+    public function getShortNameAttribute()
+    {
+        return
+        $this->attributes['last_name'] . ' ' . $this->convertNameToInitials($this->attributes['first_name'])
+        ;
+    }
+
+    public function convertNameToInitials($firstName)
+    {
+        $nameParts = explode(' ', $firstName);
+
+        if (count($nameParts) > 1) {
+            $firstNameInitial = mb_substr($nameParts[0], 0, 1, 'UTF-8');
+            $lastNameInitial = mb_substr($nameParts[1], 0, 1, 'UTF-8');
+            return $firstNameInitial . '.' . $lastNameInitial . '.';
+        } else if (count($nameParts) > 0) {
+            $firstNameInitial = mb_substr($nameParts[0], 0, 1, 'UTF-8');
+            return $firstNameInitial . '.';
+        } else {
+            return '';
+        }
+    }
 }
