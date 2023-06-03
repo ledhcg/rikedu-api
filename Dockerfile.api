@@ -24,7 +24,7 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 WORKDIR /var/www/api
 
 COPY ./src .
-COPY ./src/.env.example ./.env
+COPY ./src/.env.ubuntu.docker ./.env
 
 
 RUN composer install; \
