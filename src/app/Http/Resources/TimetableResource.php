@@ -16,7 +16,7 @@ class TimetableResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'group' => $this->group_name,
+            'group' => $this->group->group_name,
             'data' => $this->data_decode,
         ];
     }
