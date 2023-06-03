@@ -31,8 +31,10 @@ class TimetableSeeder extends Seeder
                 for ($i = 1; $i <= intval($teacher->subjects->pluck('week_lessons')[0]); $i++) {
                     array_push($list_lesson_by_teacher_id,
                         [
-                            "teacher_id" => $teacher->id,
-                            "room_id" => $rooms_of_group[$index]->id,
+                            "subject_name" => $teacher->subjects->pluck('name')[0],
+                            "teacher_short_name" => $teacher->short_name,
+                            "teacher_avatar_url" => $teacher->avatar_url,
+                            "room_name" => $rooms_of_group[$index]->name,
                         ]
                     );
                 }

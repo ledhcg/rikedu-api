@@ -11,6 +11,7 @@ use Illuminate\Support\Str;
 
 class CategoryAndTagSeeder extends Seeder
 {
+    const BASE_URL = 'https://api.rikedu.ru/';
     /**
      * Run the database seeds.
      *
@@ -498,7 +499,7 @@ class CategoryAndTagSeeder extends Seeder
                 'user_id' => $user->id,
                 'title' => $post["title"],
                 'slug' => Str::slug($post["title"]),
-                'image' => 'https://api.ledinhcuong.com/storage/images/default/posts/' . $randomNumber . '.jpg',
+                'image' => self::BASE_URL . 'storage/images/posts/' . $randomNumber . '.webp',
                 'content' => $post["content"],
                 'summary' => $post["summary"],
                 'published' => true,
@@ -515,7 +516,7 @@ class CategoryAndTagSeeder extends Seeder
                 'user_id' => $user->id,
                 'title' => $post["title"],
                 'slug' => Str::slug($post["title"]),
-                'image' => 'https://api.ledinhcuong.com/storage/images/default/posts/' . $randomNumber . '.jpg',
+                'image' => self::BASE_URL . 'storage/images/posts/' . $randomNumber . '.webp',
                 'content' => $post["content"],
                 'summary' => $post["summary"],
                 'published' => true,
@@ -533,7 +534,7 @@ class CategoryAndTagSeeder extends Seeder
                 'user_id' => $user->id,
                 'title' => $post["title"],
                 'slug' => Str::slug($post["title"]),
-                'image' => 'https://api.ledinhcuong.com/storage/images/default/posts/' . $randomNumber . '.jpg',
+                'image' => self::BASE_URL . 'storage/images/posts/' . $randomNumber . '.webp',
                 'content' => $post["content"],
                 'summary' => $post["summary"],
                 'published' => true,
@@ -550,7 +551,7 @@ class CategoryAndTagSeeder extends Seeder
                 'user_id' => $user->id,
                 'title' => $post["title"],
                 'slug' => Str::slug($post["title"]),
-                'image' => 'https://api.ledinhcuong.com/storage/images/default/posts/' . $randomNumber . '.jpg',
+                'image' => self::BASE_URL . 'storage/images/posts/' . $randomNumber . '.webp',
                 'content' => $post["content"],
                 'summary' => $post["summary"],
                 'published' => true,
