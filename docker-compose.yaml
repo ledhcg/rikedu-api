@@ -1,24 +1,7 @@
 version: '3.8'
 
 services:
-    # Web Server Service
-    nginx:
-        image: nginx:alpine
-        container_name: ${PROJECT_NAME}-nginx
-        restart: unless-stopped
-        tty: true
-        ports:
-            - '80:80'
-            - '443:443'
-        volumes:
-            - ./src:/var/www/api/
-            - ./nginx/conf.d/:/etc/nginx/conf.d/
-            - ./nginx/ssl:/etc/ssl
-        depends_on:
-            - api
-            - db
-        networks:
-            - starter_networks
+
     #Database Service
     db:
         image: mysql:8.0
@@ -72,6 +55,25 @@ services:
         ports:
             - '8000:8000'
         depends_on:
+            - db
+        networks:
+            - starter_networks
+
+    # Web Server Service
+    nginx:
+        image: nginx:alpine
+        container_name: ${PROJECT_NAME}-nginx
+        restart: unless-stopped
+        tty: true
+        ports:
+            - '80:80'
+            - '443:443'
+        volumes:
+            - ./src:/var/www/api/
+            - ./nginx/conf.d/:/etc/nginx/conf.d/
+            - ./nginx/ssl:/etc/ssl
+        depends_on:
+            - api
             - db
         networks:
             - starter_networks
