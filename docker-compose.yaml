@@ -2,9 +2,9 @@ version: '3.8'
 
 services:
     # Web Server Service
-    webserver:
+    nginx:
         image: nginx:alpine
-        container_name: ${PROJECT_NAME}-webserver
+        container_name: ${PROJECT_NAME}-nginx
         restart: unless-stopped
         tty: true
         ports:
