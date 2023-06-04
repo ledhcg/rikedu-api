@@ -36,10 +36,9 @@ services:
             - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
         networks:
             - starter_networks
-
     # phpMyAdmin Service
     phpmyadmin:
-        image: phpmyadmin/phpmyadmin
+        image: phpmyadmin/phpmyadmin:latest
         container_name: ${PROJECT_NAME}-phpmyadmin
         restart: always
         environment:
@@ -55,7 +54,6 @@ services:
             - db
         networks:
             - starter_networks
-
     # API Service
     api:
         build:
@@ -75,6 +73,5 @@ services:
             - db
         networks:
             - starter_networks
-
 networks:
     starter_networks:
