@@ -12,8 +12,8 @@ services:
             - '443:443'
         volumes:
             - ./src:/var/www/api/
-            - ./nginx/conf.d/:/etc/nginx/conf.d/
-            - ./nginx/ssl:/etc/ssl
+            - ./config/nginx/conf.d/:/etc/nginx/conf.d/
+            - ./config/nginx/ssl:/etc/ssl
         depends_on:
             - api
             - db
@@ -71,6 +71,33 @@ services:
             - '8000:8000'
         depends_on:
             - db
+        networks:
+            - starter_networks
+    jaeger:
+        container_name: ${PROJECT_NAME}-jaeger
+        image: jaegertracing/all-in-one:latest
+        ports:
+        - '6831:6831/udp'
+        - '16686:16686'
+        networks:
+            - starter_networks
+    prometheus:
+        container_name: ${PROJECT_NAME}-prometheus
+        image: prom/prometheus
+        volumes:
+        - ./config/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+        ports:
+        - '9090:9090'
+        networks:
+            - starter_networks
+    grafana:
+        container_name: ${PROJECT_NAME}-grafana
+        image: grafana/grafana-oss
+        ports:
+        - '3000:3000'
+        restart: unless-stopped
+        volumes:
+        - ./config/grafana/datasources:/etc/grafana/provisioning/datasources
         networks:
             - starter_networks
 networks:
