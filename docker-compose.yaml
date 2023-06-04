@@ -67,7 +67,7 @@ services:
                 - DB_PASSWORD=${MYSQL_PASSWORD}
             context: .
             dockerfile: Dockerfile.api
-        command: 'php artisan serve --host=0.0.0.0'
+        command: 'php artisan serve'
         container_name: ${PROJECT_NAME}-api
         ports:
             - '8000:8000'
