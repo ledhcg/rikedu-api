@@ -71,7 +71,6 @@ services:
         volumes:
             - ./src:/var/www/api/
             - ./nginx/conf.d/:/etc/nginx/conf.d/
-            - ./nginx/ssl:/etc/ssl
         depends_on:
             - api
             - db
