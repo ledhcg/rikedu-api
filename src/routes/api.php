@@ -56,6 +56,7 @@ Route::group(['prefix' => 'v1'], function () {
 
     //User
     Route::get('/users', [UserController::class, 'index']);
+    Route::get('/users/super-admin', [UserController::class, 'superAdmin']);
     Route::get('/users/teachers', [UserController::class, 'teachers']);
     Route::get('/users/parents', [UserController::class, 'parents']);
     Route::get('/users/students', [UserController::class, 'students']);

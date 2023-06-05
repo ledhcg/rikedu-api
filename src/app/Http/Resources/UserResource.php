@@ -150,6 +150,21 @@ class UserResource extends JsonResource
                     'subject' => $this->subjects,
                     'group' => $this->groupTeachers,
                 ];
+            case ModeQuery::MODEL_USER_SUPER_ADMIN:
+                return [
+                    'user' => [
+                        'id' => $this->id,
+                        'username' => $this->username,
+                        'email' => $this->email,
+                        'full_name' => $this->full_name,
+                        'avatar_url' => $this->avatar_url,
+                        'gender' => $this->gender,
+                        'date_of_birth' => $this->date_of_birth,
+                        'phone' => $this->phone,
+                        'address' => $this->address,
+                        'department' => $this->department,
+                    ],
+                ];
         }
     }
 }

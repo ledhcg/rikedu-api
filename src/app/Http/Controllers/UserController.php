@@ -6,6 +6,7 @@ use App\Contracts\ModeQuery;
 use App\Http\Requests\User\StoreUserRequest;
 use App\Http\Requests\User\UpdateUserRequest;
 use App\Http\Resources\UserCollection;
+use App\Http\Resources\UserResource;
 use App\Models\Role;
 use App\Models\User;
 use App\Services\UserService;
@@ -76,6 +77,18 @@ class UserController extends Controller
         return $this->successResponse(
             new UserCollection($users),
             'Users retrieved successfully'
+        );
+    }
+
+    public function superAdmin(Request $request)
+    {
+        $role = Role::findByName('super admin');
+        $user = $role->users()->first();
+
+        $user->modeQuery = ModeQuery::MODEL_USER_SUPER_ADMIN;
+        return $this->successResponse(
+            new UserResource($user),
+            'User retrieved successfully'
         );
     }
     /**
