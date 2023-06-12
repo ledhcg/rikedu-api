@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Contracts\ModeQuery;
+use App\Contracts\StoragePath;
+use App\Http\Requests\User\EditProfileUserRequest;
 use App\Http\Requests\User\StoreUserRequest;
+use App\Http\Requests\User\UpdateAvatarUserRequest;
 use App\Http\Requests\User\UpdateUserRequest;
 use App\Http\Resources\UserCollection;
 use App\Http\Resources\UserResource;
@@ -132,6 +135,44 @@ class UserController extends Controller
     public function edit(User $user)
     {
         //
+    }
+
+    public function updateAvatar(UpdateAvatarUserRequest $request, $id)
+    {
+        $user = User::find($id);
+        if (!$user) {
+            return $this->notFoundResponse('User not found');
+        }
+        $validated = $request->validated();
+        if (isset($validated['image'])) {
+            $validated['image'] = $this->userService->processImage(
+                $validated['image'],
+                StoragePath::USER_IMAGE_AVATAR
+            );
+        }
+        $user->fill($validated);
+        $user->save();
+        $user->modeQuery = ModeQuery::MODEL_COLLECTION;
+        return $this->successResponse(
+            new UserResource($user),
+            'User updated successfully'
+        );
+    }
+
+    public function editProfile(EditProfileUserRequest $request, $id)
+    {
+        $user = User::find($id);
+        if (!$user) {
+            return $this->notFoundResponse('User not found');
+        }
+        $validated = $request->validated();
+        $user->fill($validated);
+        $user->save();
+        $user->modeQuery = ModeQuery::MODEL_COLLECTION;
+        return $this->successResponse(
+            new UserResource($user),
+            'User updated successfully'
+        );
     }
 
     /**
