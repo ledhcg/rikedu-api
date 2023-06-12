@@ -2,10 +2,15 @@
 
 namespace App\Http\Requests\Exercise;
 
+use App\Traits\HasResponse;
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class MarkExerciseRequest extends FormRequest
 {
+    use HasResponse;
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -13,7 +18,7 @@ class MarkExerciseRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -27,5 +32,15 @@ class MarkExerciseRequest extends FormRequest
             'mark' => 'required|numeric|min:0|max:5',
             'review' => 'required|string|max:255',
         ];
+    }
+
+    public function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(
+            $this->validationErrorResponse(
+                'Validation failed',
+                $validator->errors()
+            )
+        );
     }
 }

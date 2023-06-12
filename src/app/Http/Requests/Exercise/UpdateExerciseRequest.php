@@ -24,10 +24,10 @@ class UpdateExerciseRequest extends FormRequest
     public function rules()
     {
         return [
-            'file' => 'sometimes|file|max:2048',
-            'is_submit' => 'sometimes|boolean',
-            'mark' => 'sometimes|numeric|min:0|max:5',
-            'review' => 'sometimes|string|max:255',
+            // 'file' => 'sometimes|file|max:2048',
+            // 'is_submit' => 'sometimes|boolean',
+            // 'mark' => 'sometimes|numeric|min:0|max:5',
+            // 'review' => 'sometimes|string|max:255',
         ];
     }
 }

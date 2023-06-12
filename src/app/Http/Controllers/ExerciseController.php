@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Contracts\StoragePath;
+use App\Http\Requests\Exercise\MarkExerciseRequest;
 use App\Http\Requests\Exercise\StoreExerciseRequest;
 use App\Http\Requests\Exercise\SubmitExerciseRequest;
 use App\Http\Requests\Exercise\UpdateExerciseRequest;
@@ -96,6 +97,21 @@ class ExerciseController extends Controller
         }
         $exercise->fill($validated);
         $exercise->is_submit = true;
+        $exercise->save();
+        return $this->successResponse(
+            new ExerciseResource($exercise),
+            'Exercise updated successfully'
+        );
+    }
+
+    public function mark(MarkExerciseRequest $request, $id)
+    {
+        $exercise = Exercise::find($id);
+        if (!$exercise) {
+            return $this->notFoundResponse('Exercise not found');
+        }
+        $validated = $request->validated();
+        $exercise->fill($validated);
         $exercise->save();
         return $this->successResponse(
             new ExerciseResource($exercise),
