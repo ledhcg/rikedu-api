@@ -19,7 +19,7 @@ class ExerciseResource extends JsonResource
             'subject_name' => $this->subjectName,
             'topic' => $this->topic,
             'note' => $this->note,
-            'file' => $this->file,
+            'file' => $this->file != null ? $this->fileUrl : null,
             'deadline' => $this->deadline,
             'is_submit' => $this->is_submit,
             'mark' => $this->mark,

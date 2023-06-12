@@ -15,6 +15,12 @@ trait HasCustomModel
         : secure_asset(Storage::url($pathSource . $image));
     }
 
+    public function makeFileUrl($file, $pathSource)
+    {
+        $file = $this->attributes['file'];
+        return secure_asset(Storage::url($pathSource . $file));
+    }
+
     public function getFullNameAttribute()
     {
         return

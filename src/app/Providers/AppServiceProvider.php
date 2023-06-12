@@ -16,6 +16,7 @@ class AppServiceProvider extends ServiceProvider
         UserController::class => UserService::class,
         PostController::class => PostService::class,
         InfoController::class => InfoService::class,
+        ExerciseController::class => ExerciseService::class,
     ];
 
     /**
@@ -28,6 +29,7 @@ class AppServiceProvider extends ServiceProvider
         PostService::class => ImageService::class,
         InfoService::class => ImageService::class,
         AboutService::class => ImageService::class,
+        ExerciseService::class => FileService::class,
     ];
     /**
      * Register any application services.

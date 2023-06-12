@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Exercise;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateExerciseRequest extends FormRequest
+class SubmitExerciseRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class UpdateExerciseRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,7 @@ class UpdateExerciseRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'file' => 'required|file|max:2048',
         ];
     }
 }

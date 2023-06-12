@@ -2,13 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreExerciseRequest;
-use App\Http\Requests\UpdateExerciseRequest;
+use App\Contracts\StoragePath;
+use App\Http\Requests\Exercise\StoreExerciseRequest;
+use App\Http\Requests\Exercise\SubmitExerciseRequest;
+use App\Http\Requests\Exercise\UpdateExerciseRequest;
 use App\Http\Resources\ExerciseCollection;
+use App\Http\Resources\ExerciseResource;
 use App\Models\Exercise;
+use App\Services\ExerciseService;
 
 class ExerciseController extends Controller
 {
+
+    private $exerciseService;
+
+    public function __construct(ExerciseService $exerciseService)
+    {
+        $this->exerciseService = $exerciseService;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -69,9 +80,27 @@ class ExerciseController extends Controller
      * @param  \App\Models\Exercise  $exercise
      * @return \Illuminate\Http\Response
      */
-    public function edit(Exercise $exercise)
+    public function submit(SubmitExerciseRequest $request, $id)
     {
-        //
+        $exercise = Exercise::find($id);
+        if (!$exercise) {
+            return $this->notFoundResponse('Exercise not found');
+        }
+        $validated = $request->validated();
+        if (isset($validated['file'])) {
+            $validated['file'] = $this->exerciseService->processFile(
+                $validated['file'],
+                StoragePath::EXERCISE_FILE,
+            );
+
+        }
+        $exercise->fill($validated);
+        $exercise->is_submit = true;
+        $exercise->save();
+        return $this->successResponse(
+            new ExerciseResource($exercise),
+            'Exercise updated successfully'
+        );
     }
 
     /**

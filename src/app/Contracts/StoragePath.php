@@ -14,4 +14,6 @@ interface StoragePath
 
     const POST_IMAGE_COVER = 'images/post/cover/';
     const POST_IMAGE_THUMBNAIL = 'images/post/thumbnail/';
+
+    const EXERCISE_FILE = 'files/exercise/';
 }
