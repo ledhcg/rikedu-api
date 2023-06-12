@@ -56,6 +56,8 @@ Route::group(['prefix' => 'v1'], function () {
 
     //User
     Route::get('/users', [UserController::class, 'index']);
+    Route::put('/users/{id}/update-avatar', [UserController::class, 'updateAvatar']);
+    Route::put('/users/{id}/edit-profile', [UserController::class, 'editProfile']);
     Route::get('/users/super-admin', [UserController::class, 'superAdmin']);
     Route::get('/users/teachers', [UserController::class, 'teachers']);
     Route::get('/users/parents', [UserController::class, 'parents']);
@@ -89,6 +91,7 @@ Route::group(['prefix' => 'v1'], function () {
     //Exercise
     Route::get('exercises/user/{userID}', [ExerciseController::class, 'listByStudent']);
     Route::put('exercises/{id}/submit', [ExerciseController::class, 'submit']);
+    Route::put('exercises/{id}/mark', [ExerciseController::class, 'mark']);
 
     //Random
     Route::get('random/quote', [RandomController::class, 'quote']);
