@@ -96,7 +96,7 @@ class ExerciseController extends Controller
 
         }
         $exercise->fill($validated);
-        $exercise->is_submit = true;
+        $exercise->is_submit = 1;
         $exercise->save();
         return $this->successResponse(
             new ExerciseResource($exercise),
