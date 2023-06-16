@@ -157,7 +157,7 @@ class UserController extends Controller
         $user->modeQuery = ModeQuery::MODEL_COLLECTION;
         return $this->successResponse(
             new UserResource($user),
-            'User updated successfully'
+            'Avatar updated successfully'
         );
     }
 
