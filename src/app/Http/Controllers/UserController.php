@@ -198,6 +198,7 @@ class UserController extends Controller
         if (!$user) {
             return $this->notFoundResponse('User not found');
         }
+        $validated['password'] = bcrypt($validated['password']);
         $user->fill($validated);
         $user->save();
         $user->modeQuery = ModeQuery::MODEL_COLLECTION;
