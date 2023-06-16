@@ -9,7 +9,7 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
-class UpdateAvatarUserRequest extends FormRequest
+class ChangePasswordUserRequest extends FormRequest
 {
     use HasResponse;
     /**
@@ -29,11 +29,9 @@ class UpdateAvatarUserRequest extends FormRequest
      */
     public function rules()
     {
-        $titleSlug = Str::slug($this->input('title'));
-
         return [
-            'image' =>
-            'required|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+            'id' => 'required|string',
+            'password' => 'required|string',
         ];
     }
 

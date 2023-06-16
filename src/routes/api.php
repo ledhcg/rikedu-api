@@ -58,6 +58,8 @@ Route::group(['prefix' => 'v1'], function () {
     Route::get('/users', [UserController::class, 'index']);
     Route::put('/users/{id}/update-avatar', [UserController::class, 'updateAvatar']);
     Route::put('/users/{id}/edit-profile', [UserController::class, 'editProfile']);
+    Route::post('/users/check-password', [UserController::class, 'checkPassword']);
+    Route::post('/users/update-password', [UserController::class, 'updatePassword']);
     Route::get('/users/super-admin', [UserController::class, 'superAdmin']);
     Route::get('/users/teachers', [UserController::class, 'teachers']);
     Route::get('/users/parents', [UserController::class, 'parents']);

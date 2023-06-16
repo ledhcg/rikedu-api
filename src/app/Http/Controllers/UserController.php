@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Contracts\ModeQuery;
 use App\Contracts\StoragePath;
+use App\Http\Requests\User\ChangePasswordUserRequest;
 use App\Http\Requests\User\EditProfileUserRequest;
 use App\Http\Requests\User\StoreUserRequest;
 use App\Http\Requests\User\UpdateAvatarUserRequest;
@@ -14,6 +15,7 @@ use App\Models\Role;
 use App\Models\User;
 use App\Services\UserService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -172,6 +174,36 @@ class UserController extends Controller
         return $this->successResponse(
             new UserResource($user),
             'User updated successfully'
+        );
+    }
+
+    public function checkPassword(ChangePasswordUserRequest $request)
+    {
+        $validated = $request->validated();
+        $user = User::find($validated['id']);
+        if (!$user) {
+            return $this->notFoundResponse('User not found');
+        }
+        $currentPasswordHash = $user->password;
+        return $this->successResponse(
+            Hash::check($validated['password'], $currentPasswordHash),
+            'Check password successfully'
+        );
+    }
+
+    public function updatePassword(ChangePasswordUserRequest $request)
+    {
+        $validated = $request->validated();
+        $user = User::find($validated['id']);
+        if (!$user) {
+            return $this->notFoundResponse('User not found');
+        }
+        $user->fill($validated);
+        $user->save();
+        $user->modeQuery = ModeQuery::MODEL_COLLECTION;
+        return $this->successResponse(
+            new UserResource($user),
+            'Password updated successfully'
         );
     }
 
