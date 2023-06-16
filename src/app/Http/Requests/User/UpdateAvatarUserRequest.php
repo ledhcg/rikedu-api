@@ -29,8 +29,6 @@ class UpdateAvatarUserRequest extends FormRequest
      */
     public function rules()
     {
-        $titleSlug = Str::slug($this->input('title'));
-
         return [
             'image' =>
             'required|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
